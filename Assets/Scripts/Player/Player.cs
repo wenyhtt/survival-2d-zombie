@@ -4,11 +4,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    private static readonly int PlayerIdle = Animator.StringToHash("PlayerIdle");
     private static readonly int PlayerWalkSide = Animator.StringToHash("PlayerWalkSide");
     private static readonly int PlayerWalkUp = Animator.StringToHash("PlayerWalkUp");
     private static readonly int PlayerWalkDown = Animator.StringToHash("PlayerWalkDown");
-    private const float PlayerWalkSideSkipFirstFrame = 0.48f;
+    private const float PlayerWalkSkipFirstFrame = 0.48f;
 
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private InputActionReference moveActionReference;
@@ -18,6 +17,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Vector2 movement;
     private int currentAnimation;
+    private bool wasMoving;
 
     private void Awake()
     {
@@ -43,27 +43,48 @@ public class Player : MonoBehaviour
 
     private void PlayMovementAnimation(Vector2 direction)
     {
-        int nextAnimation = PlayerIdle;
-
-        if (direction.sqrMagnitude > 0.01f)
+        if (direction.sqrMagnitude <= 0.01f)
         {
-            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            if (animator != null)
             {
-                nextAnimation = PlayerWalkSide;
+                if (currentAnimation != 0)
+                {
+                    animator.Play(currentAnimation, 0, 0f);
+                    animator.Update(0f);
+                }
 
-                if (spriteRenderer != null)
-                    spriteRenderer.flipX = direction.x < 0f;
+                animator.speed = 0f;
             }
-            else
-            {
-                nextAnimation = direction.y > 0f ? PlayerWalkUp : PlayerWalkDown;
-            }
+
+            wasMoving = false;
+            return;
         }
 
-        if (animator != null && currentAnimation != nextAnimation)
+        bool startedWalking = !wasMoving;
+
+        if (animator != null)
+            animator.speed = 1f;
+
+        int nextAnimation;
+
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            animator.Play(nextAnimation, 0, nextAnimation == PlayerWalkSide ? PlayerWalkSideSkipFirstFrame : 0f);
+            nextAnimation = PlayerWalkSide;
+
+            if (spriteRenderer != null)
+                spriteRenderer.flipX = direction.x < 0f;
+        }
+        else
+        {
+            nextAnimation = direction.y > 0f ? PlayerWalkUp : PlayerWalkDown;
+        }
+
+        if (animator != null && (currentAnimation != nextAnimation || startedWalking))
+        {
+            animator.Play(nextAnimation, 0, PlayerWalkSkipFirstFrame);
             currentAnimation = nextAnimation;
         }
+
+        wasMoving = true;
     }
 }
