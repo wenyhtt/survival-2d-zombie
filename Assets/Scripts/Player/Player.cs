@@ -11,19 +11,29 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private InputActionReference moveActionReference;
+    [SerializeField] private Transform pickableItems;
 
     private Rigidbody2D rigidBody;
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer[] childRenderers;
     private Vector2 movement;
     private int currentAnimation;
     private bool wasMoving;
+    private bool isFacingLeft;
+    private bool lastFacingLeft;
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        childRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        if (pickableItems == null)
+        {
+            Transform found = transform.Find("PickableItems");
+            if (found != null)
+                pickableItems = found;
+        }
     }
 
     private void OnMove(InputValue value)
@@ -39,6 +49,11 @@ public class Player : MonoBehaviour
         Vector2 clampedMovement = Vector2.ClampMagnitude(movement, 1f);
         PlayMovementAnimation(clampedMovement);
         rigidBody.MovePosition(rigidBody.position + clampedMovement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        ApplyFacingDirection();
     }
 
     private void PlayMovementAnimation(Vector2 direction)
@@ -70,13 +85,12 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             nextAnimation = PlayerWalkSide;
-
-            if (spriteRenderer != null)
-                spriteRenderer.flipX = direction.x < 0f;
+            isFacingLeft = direction.x < 0f;
         }
         else
         {
             nextAnimation = direction.y > 0f ? PlayerWalkUp : PlayerWalkDown;
+            isFacingLeft = false;
         }
 
         if (animator != null && (currentAnimation != nextAnimation || startedWalking))
@@ -86,5 +100,27 @@ public class Player : MonoBehaviour
         }
 
         wasMoving = true;
+    }
+
+    private void ApplyFacingDirection()
+    {
+        if (isFacingLeft != lastFacingLeft)
+        {
+            lastFacingLeft = isFacingLeft;
+
+            if (childRenderers != null)
+            {
+                foreach (SpriteRenderer sr in childRenderers)
+                    sr.flipX = isFacingLeft;
+            }
+        }
+
+        // Animator writes a new X every frame, so we must negate every LateUpdate when facing left.
+        if (pickableItems != null && isFacingLeft)
+        {
+            Vector3 localPos = pickableItems.localPosition;
+            localPos.x = -localPos.x;
+            pickableItems.localPosition = localPos;
+        }
     }
 }
