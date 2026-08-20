@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     private bool isFacingLeft;
     private bool lastFacingLeft;
 
+    public bool IsFacingUp => currentAnimation == PlayerWalkUp;
+    public bool IsFacingDown => currentAnimation == PlayerWalkDown;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
