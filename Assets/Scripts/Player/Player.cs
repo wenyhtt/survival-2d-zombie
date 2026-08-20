@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     public bool IsFacingUp => currentAnimation == PlayerWalkUp;
     public bool IsFacingDown => currentAnimation == PlayerWalkDown;
+    public bool IsFacingLeft => isFacingLeft;
 
     private void Awake()
     {
