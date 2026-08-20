@@ -28,19 +28,19 @@ public class WeaponFacing : MonoBehaviour
         {
             if (upSprite != null && spriteRenderer.sprite != upSprite)
                 spriteRenderer.sprite = upSprite;
-                spriteRenderer.sortingOrder = -1;
+                spriteRenderer.sortingOrder = 1;
         }
         else if (player.IsFacingDown)
         {
             if (downSprite != null && spriteRenderer.sprite != downSprite)
                 spriteRenderer.sprite = downSprite;
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 3;
         }
         else
         {
             if (sideSprite != null && spriteRenderer.sprite != sideSprite)
                 spriteRenderer.sprite = sideSprite;
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 3;
         }
     }
 }
