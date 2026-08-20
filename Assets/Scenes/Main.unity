@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   moveSpeed: 3
   moveActionReference: {fileID: -1680190386980627800, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
-  pickableItems: {fileID: 0}
+  pickableItems: {fileID: 181519506}
 --- !u!50 &896567626
 Rigidbody2D:
   serializedVersion: 5
