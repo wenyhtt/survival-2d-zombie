@@ -8,6 +8,7 @@ public class WeaponShoot : MonoBehaviour
     
     [Tooltip("The gap in Unity units from the weapon center to spawn the bullet.")]
     [SerializeField] private float spawnOffset = 0.5f; 
+    [SerializeField] private float spawnOffsetFlipX = 0.5f; 
     
     [Tooltip("Optional: Assign an Input Action for shooting.")]
     [SerializeField] private InputActionReference shootActionReference;
@@ -54,7 +55,7 @@ public class WeaponShoot : MonoBehaviour
         else if (player.IsFacingDown)
             shootDirection = Vector2.down;
         else if (player.IsFacingLeft)
-            shootDirection = Vector2.left * 0.1f;
+            shootDirection = Vector2.left * spawnOffsetFlipX;
 
         // Calculate spawn position based on the weapon's position plus the gap offset
         Vector3 spawnPosition = transform.position + (Vector3)(shootDirection * spawnOffset);
