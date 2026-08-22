@@ -173,7 +173,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 181519506}
-  - component: {fileID: 181519507}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -197,22 +196,6 @@ Transform:
   - {fileID: 2096695016}
   m_Father: {fileID: 896567624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &181519507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181519505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02bb86025e9427fd4b4fbcad177a3883, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponShoot
-  player: {fileID: 896567625}
-  bulletPrefab: {fileID: 5163127326476692994, guid: 039b0ea812ea3fbd8a7aecbd7b126031, type: 3}
-  spawnOffset: 0.5
-  shootActionReference: {fileID: 1120369429361536294, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
 --- !u!1 &896567622
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +898,7 @@ GameObject:
   - component: {fileID: 2096695016}
   - component: {fileID: 2096695018}
   - component: {fileID: 2096695017}
+  - component: {fileID: 2096695019}
   m_Layer: 0
   m_Name: Handgun
   m_TagString: Untagged
@@ -1013,6 +997,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2096695019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096695015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02bb86025e9427fd4b4fbcad177a3883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponShoot
+  player: {fileID: 896567625}
+  bulletPrefab: {fileID: 5163127326476692994, guid: 039b0ea812ea3fbd8a7aecbd7b126031, type: 3}
+  spawnOffset: 0.5
+  shootActionReference: {fileID: 1120369429361536294, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
