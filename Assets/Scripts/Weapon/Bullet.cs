@@ -18,4 +18,15 @@ public class Bullet : MonoBehaviour
         // Move the bullet every frame
         transform.Translate(direction * speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            // Destroy the enemy
+            Destroy(collision.gameObject);
+            // Destroy the bullet
+            Destroy(gameObject);
+        }
+    }
 }
