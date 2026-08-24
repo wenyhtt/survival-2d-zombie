@@ -20,8 +20,8 @@ public class EnemyAI : MonoBehaviour
 
     private int currentAnimation;
     private bool wasMoving;
-    private bool isFacingLeft;
-    private bool lastFacingLeft;
+    private bool isFacingRight;
+    private bool lastFacingRight;
 
     private void Awake()
     {
@@ -96,12 +96,12 @@ public class EnemyAI : MonoBehaviour
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             nextAnimation = WalkSide;
-            isFacingLeft = direction.x > 0f;
+            isFacingRight = direction.x > 0f;
         }
         else
         {
             nextAnimation = direction.y > 0f ? WalkUp : WalkDown;
-            isFacingLeft = false;
+            isFacingRight = false;
         }
 
         if (animator != null && (currentAnimation != nextAnimation || startedWalking))
@@ -115,14 +115,14 @@ public class EnemyAI : MonoBehaviour
 
     private void ApplyFacingDirection()
     {
-        if (isFacingLeft != lastFacingLeft)
+        if (isFacingRight != lastFacingRight)
         {
-            lastFacingLeft = isFacingLeft;
+            lastFacingRight = isFacingRight;
 
             if (childRenderers != null)
             {
                 foreach (SpriteRenderer sr in childRenderers)
-                    sr.flipX = isFacingLeft;
+                    sr.flipX = isFacingRight;
             }
         }
     }
