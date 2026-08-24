@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifeTime = 2f;
+    [SerializeField] private int damage = 25; // Amount of damage this bullet deals
     private Vector2 direction;
 
     public void Setup(Vector2 dir)
@@ -23,8 +24,18 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            // Destroy the enemy
-            Destroy(collision.gameObject);
+            // Apply damage instead of instantly destroying
+            Health enemyHealth = collision.GetComponent<Health>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+            else
+            {
+                // Fallback to instant kill if no Health component exists yet
+                Destroy(collision.gameObject);
+            }
+            
             // Destroy the bullet
             Destroy(gameObject);
         }

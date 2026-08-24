@@ -11,7 +11,12 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.8f;
     [SerializeField] private bool useAggroRange = false; // If false, chases infinitely
     [SerializeField] private float aggroRange = 10f;
-    [SerializeField] private float attackRange = 0.5f;
+    [SerializeField] private float attackRange = 1.2f;
+
+    [Header("Combat Settings")]
+    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private float attackCooldown = 1f;
+    private float lastAttackTime;
 
     private Transform player;
     private Rigidbody2D rigidBody;
@@ -54,13 +59,37 @@ public class EnemyAI : MonoBehaviour
 
         if (withinAggro && distance > attackRange)
         {
+            // Chase Player
             Vector2 movement = directionToPlayer.normalized;
             PlayMovementAnimation(movement);
             rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
+        else if (distance <= attackRange)
+        {
+            // Stop and Attack Player
+            PlayMovementAnimation(Vector2.zero);
+            
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                AttackPlayer();
+                lastAttackTime = Time.time;
+            }
+        }
         else
         {
             PlayMovementAnimation(Vector2.zero);
+        }
+    }
+
+    private void AttackPlayer()
+    {
+        if (player != null)
+        {
+            Health playerHealth = player.GetComponent<Health>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(attackDamage);
+            }
         }
     }
 
