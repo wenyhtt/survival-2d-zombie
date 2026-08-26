@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class WeaponShoot : MonoBehaviour
 {
-    [SerializeField] private Player player;
+    private Player player;
     [SerializeField] private GameObject bulletPrefab;
     
     [Tooltip("The gap in Unity units from the weapon center to spawn the bullet.")]
@@ -15,28 +15,13 @@ public class WeaponShoot : MonoBehaviour
 
     private void Awake()
     {
-        if (player == null)
-            player = GetComponentInParent<Player>();
+        player ??= GetComponentInParent<Player>();
     }
 
     private void Update()
     {
-        bool shootPressed = false;
-
-        // Check for new Input System Action
-        if (shootActionReference != null && shootActionReference.action.enabled)
-        {
-            shootPressed = shootActionReference.action.WasPressedThisFrame();
-        }
-        // Fallback to Left Mouse Click or Spacebar using Input System
-        else if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            shootPressed = true;
-        }
-        else if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            shootPressed = true;
-        }
+        // Check for new Input System Action or fallback to Mouse/Keyboard
+        bool shootPressed = shootActionReference != null && shootActionReference.action.enabled && shootActionReference.action.WasPressedThisFrame();
 
         if (shootPressed)
         {
@@ -49,16 +34,24 @@ public class WeaponShoot : MonoBehaviour
         if (bulletPrefab == null || player == null) return;
 
         Vector2 shootDirection = Vector2.right; // Default to right
+        float currentSpawnOffset = spawnOffset;
         
         if (player.IsFacingUp)
+        {
             shootDirection = Vector2.up;
+        }
         else if (player.IsFacingDown)
+        {
             shootDirection = Vector2.down;
+        }
         else if (player.IsFacingLeft)
-            shootDirection = Vector2.left * spawnOffsetFlipX;
+        {
+            shootDirection = Vector2.left;
+            currentSpawnOffset = spawnOffsetFlipX; // Use the specific offset for left facing
+        }
 
         // Calculate spawn position based on the weapon's position plus the gap offset
-        Vector3 spawnPosition = transform.position + (Vector3)(shootDirection * spawnOffset);
+        Vector3 spawnPosition = transform.position + (Vector3)(shootDirection * currentSpawnOffset);
 
         GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
         

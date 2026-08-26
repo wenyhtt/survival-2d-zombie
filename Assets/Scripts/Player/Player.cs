@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rigidBody;
     private Animator animator;
-    private SpriteRenderer[] childRenderers;
+    private SpriteRenderer spriteRenderer;
     private Vector2 movement;
     private int currentAnimation;
     private bool wasMoving;
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        childRenderers = GetComponentsInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (pickableItems == null)
         {
@@ -38,11 +38,6 @@ public class Player : MonoBehaviour
             if (found != null)
                 pickableItems = found;
         }
-    }
-
-    private void OnMove(InputValue value)
-    {
-        movement = value.Get<Vector2>();
     }
 
     private void FixedUpdate()
@@ -112,10 +107,9 @@ public class Player : MonoBehaviour
         {
             lastFacingLeft = isFacingLeft;
 
-            if (childRenderers != null)
+            if (spriteRenderer != null)
             {
-                foreach (SpriteRenderer sr in childRenderers)
-                    sr.flipX = isFacingLeft;
+                spriteRenderer.flipX = isFacingLeft;
             }
         }
 

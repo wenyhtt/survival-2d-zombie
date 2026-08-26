@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class WeaponFacing : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    private Player player; // Reference to Player on the script
+    private SpriteRenderer spriteRenderer;
     
     [SerializeField] private Sprite sideSprite;
     [SerializeField] private Sprite upSprite;
@@ -11,36 +11,41 @@ public class WeaponFacing : MonoBehaviour
 
     private void Awake()
     {
-        // Auto-assign components if not set in the inspector
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            
-        if (player == null)
-            player = GetComponentInParent<Player>();
+        // Auto-assign components
+        spriteRenderer ??= GetComponent<SpriteRenderer>();
+        player ??= GetComponentInParent<Player>();
     }
 
     private void Update()
     {
         if (player == null || spriteRenderer == null) return;
 
-        // Swap the sprite based on the player's facing direction
+        spriteRenderer.flipX = player.IsFacingLeft;
+
+        // Determine target sprite and sorting order based on direction
+        Sprite targetSprite = sideSprite;
+        int targetOrder = 3;
+
         if (player.IsFacingUp)
         {
-            if (upSprite != null && spriteRenderer.sprite != upSprite)
-                spriteRenderer.sprite = upSprite;
-                spriteRenderer.sortingOrder = 1;
+            targetSprite = upSprite;
+            targetOrder = 1;
         }
         else if (player.IsFacingDown)
         {
-            if (downSprite != null && spriteRenderer.sprite != downSprite)
-                spriteRenderer.sprite = downSprite;
-                spriteRenderer.sortingOrder = 3;
+            targetSprite = downSprite;
         }
-        else
+
+        // Apply sprite if it changed
+        if (targetSprite != null && spriteRenderer.sprite != targetSprite)
         {
-            if (sideSprite != null && spriteRenderer.sprite != sideSprite)
-                spriteRenderer.sprite = sideSprite;
-                spriteRenderer.sortingOrder = 3;
+            spriteRenderer.sprite = targetSprite;
+        }
+
+        // Apply sorting order if it changed
+        if (spriteRenderer.sortingOrder != targetOrder)
+        {
+            spriteRenderer.sortingOrder = targetOrder;
         }
     }
 }

@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c83e5886470407bad1679f60eba4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponFacing
-  player: {fileID: 4280290297471444329, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+  player: {fileID: 0}
   spriteRenderer: {fileID: 3657104212894888185}
   sideSprite: {fileID: 21300000, guid: 62f401331bf8c32aaa5d45a422726fe3, type: 3}
   upSprite: {fileID: 21300000, guid: 5a63e2f86f16929ccb20a352e8efa7aa, type: 3}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bb86025e9427fd4b4fbcad177a3883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShoot
-  player: {fileID: 4280290297471444329, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+  player: {fileID: 0}
   bulletPrefab: {fileID: 5163127326476692994, guid: 039b0ea812ea3fbd8a7aecbd7b126031, type: 3}
   spawnOffset: 1
   spawnOffsetFlipX: 0.5
