@@ -3,10 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyAI : MonoBehaviour
 {
-    private static readonly int WalkSide = Animator.StringToHash("KidZombieEnemyWalkSide");
-    private static readonly int WalkUp = Animator.StringToHash("KidZombieEnemyWalkUp");
-    private static readonly int WalkDown = Animator.StringToHash("KidZombieEnemyWalkDown");
     private const float WalkSkipFirstFrame = 0.48f;
+
+    [Header("Animation Clips")]
+    [SerializeField] private AnimationClip walkSideClip;
+    [SerializeField] private AnimationClip walkUpClip;
+    [SerializeField] private AnimationClip walkDownClip;
 
     [SerializeField] private float moveSpeed = 0.8f;
     [SerializeField] private bool useAggroRange = false; // If false, chases infinitely
@@ -29,6 +31,9 @@ public class EnemyAI : MonoBehaviour
     private SpriteRenderer[] childRenderers;
 
     private int currentAnimation;
+    private int walkSide;
+    private int walkUp;
+    private int walkDown;
     private bool wasMoving;
     private bool isFacingRight;
     private bool lastFacingRight;
@@ -38,6 +43,22 @@ public class EnemyAI : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         childRenderers = GetComponentsInChildren<SpriteRenderer>();
+
+        if (animator == null)
+        {
+            Debug.LogWarning($"{name} has no Animator for EnemyAI animations.", this);
+            return;
+        }
+
+        if (animator.runtimeAnimatorController == null)
+        {
+            Debug.LogWarning($"{name} has no Animator Controller for EnemyAI animations.", this);
+            return;
+        }
+
+        walkSide = GetAnimationStateHash(walkSideClip, "side");
+        walkUp = GetAnimationStateHash(walkUpClip, "up");
+        walkDown = GetAnimationStateHash(walkDownClip, "down");
     }
 
     private void Start()
@@ -122,29 +143,54 @@ public class EnemyAI : MonoBehaviour
 
         bool startedWalking = !wasMoving;
 
-        if (animator != null)
-            animator.speed = 1f;
-
         int nextAnimation;
 
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
-            nextAnimation = WalkSide;
+            nextAnimation = walkSide;
             isFacingRight = direction.x > 0f;
         }
         else
         {
-            nextAnimation = direction.y > 0f ? WalkUp : WalkDown;
+            nextAnimation = direction.y > 0f ? walkUp : walkDown;
             isFacingRight = false;
         }
 
-        if (animator != null && (currentAnimation != nextAnimation || startedWalking))
+        if (animator != null && nextAnimation == 0)
         {
-            animator.Play(nextAnimation, 0, WalkSkipFirstFrame);
-            currentAnimation = nextAnimation;
+            animator.speed = 0f;
+            currentAnimation = 0;
+        }
+        else if (animator != null)
+        {
+            animator.speed = 1f;
+
+            if (currentAnimation != nextAnimation || startedWalking)
+            {
+                animator.Play(nextAnimation, 0, WalkSkipFirstFrame);
+                currentAnimation = nextAnimation;
+            }
         }
 
         wasMoving = true;
+    }
+
+    private int GetAnimationStateHash(AnimationClip clip, string direction)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning($"{name} has no {direction} .anim clip attached to EnemyAI.", this);
+            return 0;
+        }
+
+        int stateHash = Animator.StringToHash(clip.name);
+        if (!animator.HasState(0, stateHash))
+        {
+            Debug.LogWarning($"{name} has no Animator state named '{clip.name}'. Add that .anim clip to the attached controller.", this);
+            return 0;
+        }
+
+        return stateHash;
     }
 
     private void ApplyFacingDirection()

@@ -34,6 +34,8 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTimer;
     private SpawnState state = SpawnState.CountingDown;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private List<GameObject> shuffledPrefabs = new List<GameObject>();
+    private GameObject currentWavePrefab;
 
     public SpawnState CurrentState => state;
     public int CurrentWaveNumber => currentWaveIndex + 1;
@@ -93,8 +95,9 @@ public class EnemySpawner : MonoBehaviour
     {
         enemiesSpawnedThisWave = 0;
         spawnTimer = 0f;
+        currentWavePrefab = GetNextWavePrefab();
 
-        if (waves[currentWaveIndex].enemyCount <= 0 || enemyPrefabs == null || enemyPrefabs.Length == 0 || maxEnemiesAlive <= 0)
+        if (waves[currentWaveIndex].enemyCount <= 0 || currentWavePrefab == null || maxEnemiesAlive <= 0)
             CompleteWave();
         else
             state = SpawnState.Spawning;
@@ -117,13 +120,44 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject prefabToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-        GameObject newEnemy = Instantiate(prefabToSpawn, GetSpawnPosition(), Quaternion.identity);
+        GameObject newEnemy = Instantiate(currentWavePrefab, GetSpawnPosition(), Quaternion.identity);
         spawnedEnemies.Add(newEnemy);
         enemiesSpawnedThisWave++;
 
         if (enemiesSpawnedThisWave >= waves[currentWaveIndex].enemyCount)
             state = SpawnState.WaitingForDeath;
+    }
+
+    private GameObject GetNextWavePrefab()
+    {
+        if (shuffledPrefabs.Count == 0)
+            RefillShuffledPrefabs();
+
+        if (shuffledPrefabs.Count == 0) return null;
+
+        int lastIndex = shuffledPrefabs.Count - 1;
+        GameObject prefab = shuffledPrefabs[lastIndex];
+        shuffledPrefabs.RemoveAt(lastIndex);
+        return prefab;
+    }
+
+    private void RefillShuffledPrefabs()
+    {
+        if (enemyPrefabs == null) return;
+
+        foreach (GameObject prefab in enemyPrefabs)
+        {
+            if (prefab != null)
+                shuffledPrefabs.Add(prefab);
+        }
+
+        for (int i = shuffledPrefabs.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            GameObject temp = shuffledPrefabs[i];
+            shuffledPrefabs[i] = shuffledPrefabs[randomIndex];
+            shuffledPrefabs[randomIndex] = temp;
+        }
     }
 
     private Vector3 GetSpawnPosition()
