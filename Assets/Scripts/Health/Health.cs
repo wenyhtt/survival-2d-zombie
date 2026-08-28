@@ -34,11 +34,25 @@ public class Health : MonoBehaviour
         if (gameObject.CompareTag("Player"))
         {
             Debug.Log("Player has died!");
-            // For now, we'll just destroy the player object. You can hook up a Game Over screen later.
             Destroy(gameObject);
         }
         else
         {
+            // Award score to player if this enemy has a score value
+            EnemyAI enemy = GetComponent<EnemyAI>();
+            if (enemy != null)
+            {
+                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                if (playerObj != null)
+                {
+                    PlayerScore playerScore = playerObj.GetComponent<PlayerScore>();
+                    if (playerScore != null)
+                    {
+                        playerScore.AddScore(enemy.ScoreValue);
+                    }
+                }
+            }
+
             Destroy(gameObject);
         }
     }

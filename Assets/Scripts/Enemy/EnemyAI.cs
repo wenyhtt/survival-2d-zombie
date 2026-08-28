@@ -16,6 +16,11 @@ public class EnemyAI : MonoBehaviour
     [Header("Combat Settings")]
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackCooldown = 1f;
+
+    [Header("Score")]
+    [SerializeField] private int scoreValue = 10;
+    public int ScoreValue => scoreValue;
+
     private float lastAttackTime;
 
     private Transform player;
