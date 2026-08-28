@@ -158,9 +158,10 @@ MonoBehaviour:
   - waveName: Wave
     enemyCount: 10
     spawnInterval: 2
-  timeBetweenWaves: 15
+  timeBetweenWaves: 3
   enemyPrefabs:
   - {fileID: 3875379627089680677, guid: f0e3a9bfb3107ffe7925c9ea8861fda3, type: 3}
+  - {fileID: 7796053814925734281, guid: 1afe306eed0607460bad2a0d1c597da3, type: 3}
   maxEnemiesAlive: 10
   areaSize: {x: 5, y: 5}
   spawnOnEdge: 1

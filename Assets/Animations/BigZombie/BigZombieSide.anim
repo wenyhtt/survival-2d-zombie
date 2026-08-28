@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KidZombieEnemyWalkSide
+  m_Name: BigZombieSide
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,11 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -4811266198494916046, guid: 7f0ddc0f1e5294eab831c732c988f2ba, type: 3}
-    - time: 0.25
-      value: {fileID: 6633441136899417197, guid: 66fbbf53512fa72da974d5115c641e6c, type: 3}
-    - time: 0.5
-      value: {fileID: 1845015152818805623, guid: 0f1d90e2e7466eb2f839870db20336c1, type: 3}
+      value: {fileID: 21300000, guid: 2444517cb73f6c99b87480390ebbc115, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 5d2d64c3d03a5b29f8892534eb8e527f, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 5fc5ffdfc852d62ceab4c251da1349dc, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,15 +48,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -4811266198494916046, guid: 7f0ddc0f1e5294eab831c732c988f2ba, type: 3}
-    - {fileID: 6633441136899417197, guid: 66fbbf53512fa72da974d5115c641e6c, type: 3}
-    - {fileID: 1845015152818805623, guid: 0f1d90e2e7466eb2f839870db20336c1, type: 3}
+    - {fileID: 21300000, guid: 2444517cb73f6c99b87480390ebbc115, type: 3}
+    - {fileID: 21300000, guid: 5d2d64c3d03a5b29f8892534eb8e527f, type: 3}
+    - {fileID: 21300000, guid: 5fc5ffdfc852d62ceab4c251da1349dc, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.84999996
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
