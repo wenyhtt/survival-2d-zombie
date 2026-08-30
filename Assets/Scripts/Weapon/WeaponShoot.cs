@@ -65,8 +65,13 @@ public class WeaponShoot : MonoBehaviour
             activePoint = pointLeft;
         }
 
-        // Fallback to weapon transform if the point isn't assigned
-        Vector3 spawnPosition = activePoint != null ? activePoint.position : transform.position;
+        if (activePoint == null)
+        {
+            Debug.LogError($"Projectile point for current facing direction is not assigned on {gameObject.name}! Please assign all 4 Projectile Points in the Inspector.");
+            return;
+        }
+
+        Vector3 spawnPosition = activePoint.position;
 
         GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
         

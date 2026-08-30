@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &197345772 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7723943681505909562, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
-  m_PrefabInstance: {fileID: 6037620302834826228}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &462077014
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,63 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1001 &1252239941
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 197345772}
-    m_Modifications:
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8413919756306852805, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-      propertyPath: m_Name
-      value: Shotgun
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
 --- !u!114 &1373256267 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5698412668752668824, guid: 79b00fa16edd271a6990ebc9ae85bdab, type: 3}
@@ -382,11 +320,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.5625, y: 1.4375}
   m_EdgeRadius: 0
---- !u!4 &1625774773 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5814884798487472349, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
-  m_PrefabInstance: {fileID: 1252239941}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1643880415 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4738832308388297668, guid: 79b00fa16edd271a6990ebc9ae85bdab, type: 3}
@@ -873,10 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7723943681505909562, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1625774773}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3094929713666362301, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       insertIndex: -1
