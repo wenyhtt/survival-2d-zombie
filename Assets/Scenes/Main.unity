@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462077014}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14db6449daf53795aa6a33298a06fbcb, type: 3}
   m_Name: 
@@ -161,6 +161,7 @@ MonoBehaviour:
   timeBetweenWaves: 3
   enemyPrefabs:
   - {fileID: 3875379627089680677, guid: f0e3a9bfb3107ffe7925c9ea8861fda3, type: 3}
+  - {fileID: 3890803362148452916, guid: b2616fccf8df5699785a2ae619409759, type: 3}
   - {fileID: 7796053814925734281, guid: 1afe306eed0607460bad2a0d1c597da3, type: 3}
   maxEnemiesAlive: 10
   areaSize: {x: 5, y: 5}
@@ -760,6 +761,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 712697658379120975, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+      propertyPath: maxHealth
+      value: 99999
+      objectReference: {fileID: 0}
     - target: {fileID: 3094929713666362301, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_Name
       value: Player
