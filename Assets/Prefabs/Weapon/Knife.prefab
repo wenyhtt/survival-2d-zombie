@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9efd390d4bbf07e59b53c26a8dcafc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponMelee
-  damage: 25
-  attackRange: 0.5
-  attackCooldown: 0.5
+  damage: 10
+  attackRange: 0.6
+  attackCooldown: 0.2
   thrustDistance: 0.125
   thrustDuration: 0.1
   attackActionReference: {fileID: 1120369429361536294, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}

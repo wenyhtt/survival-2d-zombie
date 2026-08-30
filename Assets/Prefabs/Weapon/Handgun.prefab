@@ -122,5 +122,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShoot
   bulletPrefab: {fileID: 5163127326476692994, guid: 039b0ea812ea3fbd8a7aecbd7b126031, type: 3}
   spawnOffset: 0.5
-  spawnOffsetFlipX: 0.1
+  spawnOffsetFlipX: 0.5
   shootActionReference: {fileID: 1120369429361536294, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}

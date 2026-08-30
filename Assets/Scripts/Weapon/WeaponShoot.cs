@@ -1,17 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(10)]
 public class WeaponShoot : MonoBehaviour
 {
     private Player player;
     [SerializeField] private GameObject bulletPrefab;
     
-    [Tooltip("The gap in Unity units from the weapon center to spawn the bullet.")]
-    [SerializeField] private float spawnOffset = 0.5f; 
-    [SerializeField] private float spawnOffsetFlipX = 0.5f; 
+    [Header("Projectile Points")]
+    [Tooltip("Assign 4 empty GameObjects positioned at the barrel for each direction.")]
+    [SerializeField] private Transform pointRight;
+    [SerializeField] private Transform pointLeft;
+    [SerializeField] private Transform pointUp;
+    [SerializeField] private Transform pointDown;
     
     [Tooltip("Optional: Assign an Input Action for shooting.")]
     [SerializeField] private InputActionReference shootActionReference;
+
+    private bool pendingShoot;
 
     private void Awake()
     {
@@ -21,11 +27,18 @@ public class WeaponShoot : MonoBehaviour
     private void Update()
     {
         // Check for new Input System Action or fallback to Mouse/Keyboard
-        bool shootPressed = shootActionReference != null && shootActionReference.action.enabled && shootActionReference.action.WasPressedThisFrame();
+        if (shootActionReference != null && shootActionReference.action.enabled && shootActionReference.action.WasPressedThisFrame())
+        {
+            pendingShoot = true;
+        }
+    }
 
-        if (shootPressed)
+    private void LateUpdate()
+    {
+        if (pendingShoot)
         {
             Shoot();
+            pendingShoot = false;
         }
     }
 
@@ -34,24 +47,26 @@ public class WeaponShoot : MonoBehaviour
         if (bulletPrefab == null || player == null) return;
 
         Vector2 shootDirection = Vector2.right; // Default to right
-        float currentSpawnOffset = spawnOffset;
-        
+        Transform activePoint = pointRight;
+
         if (player.IsFacingUp)
         {
             shootDirection = Vector2.up;
+            activePoint = pointUp;
         }
         else if (player.IsFacingDown)
         {
             shootDirection = Vector2.down;
+            activePoint = pointDown;
         }
         else if (player.IsFacingLeft)
         {
             shootDirection = Vector2.left;
-            currentSpawnOffset = spawnOffsetFlipX; // Use the specific offset for left facing
+            activePoint = pointLeft;
         }
 
-        // Calculate spawn position based on the weapon's position plus the gap offset
-        Vector3 spawnPosition = transform.position + (Vector3)(shootDirection * currentSpawnOffset);
+        // Fallback to weapon transform if the point isn't assigned
+        Vector3 spawnPosition = activePoint != null ? activePoint.position : transform.position;
 
         GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
         

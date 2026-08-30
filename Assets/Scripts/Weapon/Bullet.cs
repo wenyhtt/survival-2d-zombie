@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     public void Setup(Vector2 dir)
     {
         direction = dir.normalized;
+        transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
         // Destroy the bullet after some time so it doesn't clutter the scene
         Destroy(gameObject, lifeTime);
     }
@@ -17,7 +18,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         // Move the bullet every frame
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime, Space.World);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
