@@ -180,6 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 120
+  flashOnHit: 1
+  flashDuration: 0.1
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
