@@ -57,21 +57,21 @@ public class GunManShopUI : MonoBehaviour
     {
         if (currentPlayer != null)
         {
-            PlayerCurrency currency = currentPlayer.GetComponent<PlayerCurrency>();
-            if (currency != null)
+            PlayerScore score = currentPlayer.GetComponent<PlayerScore>();
+            if (score != null)
             {
-                if (currency.SpendCoins(item.price))
+                if (score.SpendScore(item.price))
                 {
                     WeaponSwitcher switcher = currentPlayer.GetComponentInChildren<WeaponSwitcher>();
                     if (switcher != null)
                     {
                         switcher.AddWeapon(item.weaponPrefab);
-                        Debug.Log($"Bought and equipped: {item.itemName}. Remaining coins: {currency.CurrentCoins}");
+                        Debug.Log($"Bought and equipped: {item.itemName}. Remaining score: {score.CurrentScore}");
                     }
                 }
                 else
                 {
-                    Debug.Log($"Not enough coins to buy {item.itemName}!");
+                    Debug.Log($"Not enough score to buy {item.itemName}!");
                 }
             }
         }

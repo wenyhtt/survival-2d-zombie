@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3147195441722753253}
   - component: {fileID: 1609344231546470347}
   - component: {fileID: 712697658379120975}
-  - component: {fileID: 3042868282578726658}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -226,19 +225,6 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3042868282578726658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3094929713666362301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7d781ccc5377bbb1a4fbacfbd81bfc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurrency
-  currentCoins: 100
 --- !u!1 &4453855929303625419
 GameObject:
   m_ObjectHideFlags: 0

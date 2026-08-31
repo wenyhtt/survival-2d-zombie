@@ -15,4 +15,15 @@ public class PlayerScore : MonoBehaviour
         OnScoreChanged?.Invoke(currentScore);
         Debug.Log($"Score: {currentScore} (+{amount})");
     }
+
+    public bool SpendScore(int amount)
+    {
+        if (currentScore >= amount)
+        {
+            currentScore -= amount;
+            OnScoreChanged?.Invoke(currentScore);
+            return true;
+        }
+        return false;
+    }
 }
