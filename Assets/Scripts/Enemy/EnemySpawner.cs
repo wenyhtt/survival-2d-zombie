@@ -124,6 +124,14 @@ public class EnemySpawner : MonoBehaviour
         spawnedEnemies.Add(newEnemy);
         enemiesSpawnedThisWave++;
 
+        Health enemyHealth = newEnemy.GetComponent<Health>();
+        if (enemyHealth != null && currentWaveIndex > 0)
+        {
+            int bonusPerWave = Random.Range(10, 21);
+            int totalBonus = bonusPerWave * currentWaveIndex;
+            enemyHealth.AddBonusHealth(totalBonus);
+        }
+
         if (enemiesSpawnedThisWave >= waves[currentWaveIndex].enemyCount)
             state = SpawnState.WaitingForDeath;
     }

@@ -13,6 +13,12 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public void AddBonusHealth(int amount)
+    {
+        maxHealth += amount;
+        currentHealth += amount;
+    }
+
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
