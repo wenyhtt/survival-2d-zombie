@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2078378229653269548}
   - component: {fileID: 5087496818929051734}
   - component: {fileID: 5416200582750467307}
+  - component: {fileID: 4760233949773585430}
   m_Layer: 0
   m_Name: GunMan
   m_TagString: Untagged
@@ -150,7 +151,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.02, y: -0.07}
+  m_Offset: {x: -0.01999998, y: -0.07}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4878049, y: 0.47826087}
@@ -160,7 +161,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.45, y: 1}
+  m_Size: {x: 2.45, y: 1.04}
   m_EdgeRadius: 0
 --- !u!114 &5416200582750467307
 MonoBehaviour:
@@ -176,9 +177,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GunManInteract
   weaponsForSale:
   - itemName: Handgun
-    price: 10
+    price: 15
     weaponPrefab: {fileID: 2290089639419778074, guid: 1728b9dcafea52e549ef768e8a04e836, type: 3}
   - itemName: Shotgun
-    price: 25
+    price: 30
     weaponPrefab: {fileID: 8413919756306852805, guid: 7f0baab0b8b7395fda2252d6654117b5, type: 3}
   interactAction: {fileID: 1781555164194001046, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
+--- !u!61 &4760233949773585430
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275149365256648335}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.03125, y: 0.03125}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.4878049, y: 0.47826087}
+    oldSize: {x: 2.5625, y: 1.4375}
+    newSize: {x: 2.5625, y: 1.4375}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.5625, y: 1.4375}
+  m_EdgeRadius: 0

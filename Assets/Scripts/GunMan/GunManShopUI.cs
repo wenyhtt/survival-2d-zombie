@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.Collections.Generic;
 
 public class GunManShopUI : MonoBehaviour
@@ -7,8 +8,7 @@ public class GunManShopUI : MonoBehaviour
     public static GunManShopUI Instance { get; private set; }
 
     [SerializeField] private GameObject shopPanel;
-    [SerializeField] private GameObject buttonPrefab;
-    [SerializeField] private Transform buttonContainer;
+    [SerializeField] private Button[] shopButtons;
 
     public bool IsOpen => shopPanel.activeSelf;
     private Transform currentPlayer;
@@ -25,26 +25,25 @@ public class GunManShopUI : MonoBehaviour
     {
         currentPlayer = player;
         shopPanel.SetActive(true);
-        
-        // Clear old buttons
-        foreach (Transform child in buttonContainer)
-        {
-            Destroy(child.gameObject);
-        }
 
-        // Create new buttons
-        foreach (var item in items)
+        // Configure existing Canvas panel buttons
+        for (int i = 0; i < shopButtons.Length; i++)
         {
-            GameObject btnObj = Instantiate(buttonPrefab, buttonContainer);
-            // Assuming the button prefab has a Text component for label
-            Text btnText = btnObj.GetComponentInChildren<Text>();
-            if (btnText != null)
+            if (i < items.Count)
             {
-                btnText.text = $"{item.itemName} - ${item.price}";
+                var item = items[i];
+                shopButtons[i].gameObject.SetActive(true);
+                shopButtons[i].onClick.RemoveAllListeners();
+
+                TextMeshProUGUI label = shopButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+
+                shopButtons[i].onClick.AddListener(() => BuyWeapon(item));
             }
-            
-            Button btn = btnObj.GetComponent<Button>();
-            btn.onClick.AddListener(() => BuyWeapon(item));
+            else
+            {
+                // Hide buttons that have no matching shop item
+                shopButtons[i].gameObject.SetActive(false);
+            }
         }
     }
 
