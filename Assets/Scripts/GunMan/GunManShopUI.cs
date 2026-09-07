@@ -37,7 +37,8 @@ public class GunManShopUI : MonoBehaviour
 
                 TextMeshProUGUI label = shopButtons[i].GetComponentInChildren<TextMeshProUGUI>();
 
-                shopButtons[i].onClick.AddListener(() => BuyWeapon(item));
+                Button currentButton = shopButtons[i];
+                currentButton.onClick.AddListener(() => BuyWeapon(item, currentButton));
             }
             else
             {
@@ -52,7 +53,7 @@ public class GunManShopUI : MonoBehaviour
         shopPanel.SetActive(false);
     }
 
-    private void BuyWeapon(GunManShopItem item)
+    private void BuyWeapon(GunManShopItem item, Button clickedButton)
     {
         if (currentPlayer != null)
         {
@@ -71,8 +72,35 @@ public class GunManShopUI : MonoBehaviour
                 else
                 {
                     Debug.Log($"Not enough score to buy {item.itemName}!");
+                    if (clickedButton != null)
+                    {
+                        StartCoroutine(FlashButtonRed(clickedButton));
+                    }
                 }
             }
+        }
+    }
+
+    private HashSet<Button> flashingButtons = new HashSet<Button>();
+
+    private System.Collections.IEnumerator FlashButtonRed(Button button)
+    {
+        if (flashingButtons.Contains(button)) yield break;
+        
+        Image buttonImage = button.GetComponent<Image>();
+        if (buttonImage != null)
+        {
+            flashingButtons.Add(button);
+            Color originalColor = buttonImage.color;
+            buttonImage.color = Color.red;
+            
+            yield return new WaitForSeconds(0.2f);
+            
+            if (buttonImage != null)
+            {
+                buttonImage.color = originalColor;
+            }
+            flashingButtons.Remove(button);
         }
     }
 }
