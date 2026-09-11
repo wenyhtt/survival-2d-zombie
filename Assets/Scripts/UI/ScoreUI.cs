@@ -33,7 +33,7 @@ public class ScoreUI : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = $"Score: {score}";
+            scoreText.text = $"{score}";
         }
     }
 }
