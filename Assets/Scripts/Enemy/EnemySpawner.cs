@@ -5,23 +5,18 @@ public class EnemySpawner : MonoBehaviour
 {
     public enum SpawnState { CountingDown, Spawning, WaitingForDeath }
 
-    [System.Serializable]
-    private class Wave
-    {
-        public string waveName = "Wave";
-        public int enemyCount = 10;
-        public float spawnInterval = 2f;
-    }
-
     public static EnemySpawner Instance { get; private set; }
 
     [Header("Wave Settings")]
-    [SerializeField] private Wave[] waves = { new Wave() };
+    [SerializeField] private int baseEnemyCount = 25;
+    [SerializeField] private int waveIncrementMin = 3;
+    [SerializeField] private int waveIncrementMax = 8;
+    [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float timeBetweenWaves = 5f;
 
     [Header("Spawner Settings")]
     [SerializeField] private GameObject[] enemyPrefabs;
-    [SerializeField] private int maxEnemiesAlive = 10;
+    [SerializeField] private int maxEnemiesAlive = 25;
 
     [Header("Spawn Area")]
     [SerializeField] private Vector2 areaSize = new Vector2(5f, 5f);
@@ -29,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Color gizmoColor = new Color(1f, 0f, 0f, 0.5f);
 
     private int currentWaveIndex;
+    private int currentWaveEnemyCount;
     private int enemiesSpawnedThisWave;
     private float waveCountdown;
     private float spawnTimer;
@@ -39,14 +35,8 @@ public class EnemySpawner : MonoBehaviour
 
     public SpawnState CurrentState => state;
     public int CurrentWaveNumber => currentWaveIndex + 1;
-    public string CurrentWaveName => HasCurrentWave ? waves[currentWaveIndex].waveName : "";
     public float WaveCountdown => waveCountdown;
-    public int EnemiesRemaining => HasCurrentWave
-        ? Mathf.Max(0, spawnedEnemies.Count + waves[currentWaveIndex].enemyCount - enemiesSpawnedThisWave)
-        : 0;
-    public bool IsGameComplete { get; private set; }
-
-    private bool HasCurrentWave => waves != null && currentWaveIndex >= 0 && currentWaveIndex < waves.Length;
+    public int EnemiesRemaining => Mathf.Max(0, currentWaveEnemyCount - enemiesSpawnedThisWave + spawnedEnemies.Count);
 
     private void Awake()
     {
@@ -62,12 +52,11 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
+        currentWaveEnemyCount = baseEnemyCount;
     }
 
     private void Update()
     {
-        if (IsGameComplete || !HasCurrentWave) return;
-
         spawnedEnemies.RemoveAll(enemy => enemy == null);
 
         if (state == SpawnState.CountingDown)
@@ -79,13 +68,13 @@ public class EnemySpawner : MonoBehaviour
         else if (state == SpawnState.Spawning)
         {
             spawnTimer += Time.deltaTime;
-            if (spawnTimer >= waves[currentWaveIndex].spawnInterval && spawnedEnemies.Count < maxEnemiesAlive)
+            if (spawnTimer >= spawnInterval && spawnedEnemies.Count < maxEnemiesAlive)
             {
                 SpawnEnemy();
                 spawnTimer = 0f;
             }
         }
-        else if (spawnedEnemies.Count == 0)
+        else if (state == SpawnState.WaitingForDeath && spawnedEnemies.Count == 0)
         {
             CompleteWave();
         }
@@ -97,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
         spawnTimer = 0f;
         currentWavePrefab = GetNextWavePrefab();
 
-        if (waves[currentWaveIndex].enemyCount <= 0 || currentWavePrefab == null || maxEnemiesAlive <= 0)
+        if (currentWaveEnemyCount <= 0 || currentWavePrefab == null || maxEnemiesAlive <= 0)
             CompleteWave();
         else
             state = SpawnState.Spawning;
@@ -106,13 +95,10 @@ public class EnemySpawner : MonoBehaviour
     private void CompleteWave()
     {
         currentWaveIndex++;
+        int increment = Random.Range(waveIncrementMin, waveIncrementMax + 1);
+        currentWaveEnemyCount += increment;
 
-        if (currentWaveIndex >= waves.Length)
-        {
-            IsGameComplete = true;
-            Debug.Log("All waves complete.");
-            return;
-        }
+        Debug.Log($"Wave {currentWaveIndex} complete. Next wave: {currentWaveEnemyCount} enemies (+{increment})");
 
         waveCountdown = timeBetweenWaves;
         state = SpawnState.CountingDown;
@@ -132,7 +118,7 @@ public class EnemySpawner : MonoBehaviour
             enemyHealth.AddBonusHealth(totalBonus);
         }
 
-        if (enemiesSpawnedThisWave >= waves[currentWaveIndex].enemyCount)
+        if (enemiesSpawnedThisWave >= currentWaveEnemyCount)
             state = SpawnState.WaitingForDeath;
     }
 
