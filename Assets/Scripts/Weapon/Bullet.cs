@@ -23,6 +23,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Ignore the player and any child objects (weapons, etc.)
+        if (collision.CompareTag("Player") || collision.transform.root.CompareTag("Player"))
+            return;
+
         if (collision.CompareTag("Enemy"))
         {
             // Apply damage instead of instantly destroying
@@ -36,9 +40,9 @@ public class Bullet : MonoBehaviour
                 // Fallback to instant kill if no Health component exists yet
                 Destroy(collision.gameObject);
             }
-            
-            // Destroy the bullet
-            Destroy(gameObject);
         }
+
+        // Destroy the bullet on ANY hit (enemy, wall, GunMan, etc.)
+        Destroy(gameObject);
     }
 }

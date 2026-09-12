@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3505077802124583928}
   m_Layer: 0
   m_Name: GunMan
-  m_TagString: Untagged
+  m_TagString: GunMan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
