@@ -7,6 +7,9 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
 
+    public event System.Action<int> OnHealthChanged;
+    public int CurrentHealth => currentHealth;
+
     [Tooltip("Flash the sprite red briefly when damaged.")]
     [SerializeField] private bool flashOnHit = true;
     [SerializeField] private float flashDuration = 0.1f;
@@ -22,17 +25,20 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        OnHealthChanged?.Invoke(currentHealth);
     }
 
     public void AddBonusHealth(int amount)
     {
         maxHealth += amount;
         currentHealth += amount;
+        OnHealthChanged?.Invoke(currentHealth);
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        OnHealthChanged?.Invoke(currentHealth);
         Debug.Log($"{gameObject.name} took {amount} damage. Health: {currentHealth}/{maxHealth}");
 
         if (flashOnHit)
