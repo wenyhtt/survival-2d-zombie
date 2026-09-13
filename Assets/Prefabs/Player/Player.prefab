@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1480723878248392708}
   - component: {fileID: 3147195441722753253}
   - component: {fileID: 1609344231546470347}
-  - component: {fileID: 712697658379120975}
   - component: {fileID: 5240669486676496321}
   - component: {fileID: 1673312351557649503}
+  - component: {fileID: 8672544818044972522}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -209,24 +209,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
---- !u!114 &712697658379120975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3094929713666362301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906cddf6d2603f0788bca72e5527ab08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  flashOnHit: 1
-  flashDuration: 0.1
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &5240669486676496321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +233,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7378ded557eebb08c22acf78032829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScore
+--- !u!114 &8672544818044972522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094929713666362301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906cddf6d2603f0788bca72e5527ab08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  flashOnHit: 1
+  flashDuration: 0.1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4453855929303625419
 GameObject:
   m_ObjectHideFlags: 0
