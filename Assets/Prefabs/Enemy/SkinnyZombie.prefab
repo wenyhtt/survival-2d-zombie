@@ -210,9 +210,9 @@ MonoBehaviour:
   useAggroRange: 0
   aggroRange: 10
   attackRange: 1.2
-  attackDamage: 15
+  attackDamage: 5
   attackCooldown: 1
-  scoreValue: 15
+  scoreValue: 1
 --- !u!114 &1714292509859516961
 MonoBehaviour:
   m_ObjectHideFlags: 0
