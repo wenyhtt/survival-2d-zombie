@@ -23,8 +23,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ignore the player and any child objects (weapons, etc.)
+        // Ignore the player, bullet and any child objects (weapons, etc.)
         if (collision.CompareTag("Player") || collision.transform.root.CompareTag("Player"))
+            return;
+        if (collision.CompareTag("Bullet") || collision.transform.root.CompareTag("Bullet"))
             return;
 
         if (collision.CompareTag("Enemy"))

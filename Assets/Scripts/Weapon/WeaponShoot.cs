@@ -7,6 +7,12 @@ public class WeaponShoot : MonoBehaviour
     private Player player;
     [SerializeField] private GameObject bulletPrefab;
     
+    [Header("Shotgun Settings")]
+    [Tooltip("Number of bullets fired at once. Set to 1 for single-shot weapons, > 1 for shotgun-style spread.")]
+    [SerializeField] private int pellets = 1;
+    [Tooltip("Total spread angle in degrees when firing multiple pellets.")]
+    [SerializeField] private float spreadAngle = 30f;
+    
     [Header("Projectile Points")]
     [Tooltip("Assign 4 empty GameObjects positioned at the barrel for each direction.")]
     [SerializeField] private Transform pointRight;
@@ -73,12 +79,26 @@ public class WeaponShoot : MonoBehaviour
 
         Vector3 spawnPosition = activePoint.position;
 
-        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-        
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
-        if (bulletScript != null)
+        for (int i = 0; i < pellets; i++)
         {
-            bulletScript.Setup(shootDirection);
+            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+            
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            if (bulletScript != null)
+            {
+                // Calculate spread angle offset for this pellet
+                float angleOffset = 0f;
+                if (pellets > 1)
+                {
+                    // Evenly distribute from -spreadAngle/2 to +spreadAngle/2
+                    float step = spreadAngle / (pellets - 1);
+                    angleOffset = -spreadAngle / 2f + (step * i);
+                }
+
+                // Rotate the base shootDirection by angleOffset
+                Vector2 finalDirection = Quaternion.Euler(0, 0, angleOffset) * shootDirection;
+                bulletScript.Setup(finalDirection);
+            }
         }
     }
 }

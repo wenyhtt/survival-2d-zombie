@@ -223,6 +223,8 @@ MonoBehaviour:
   pointUp: {fileID: 8350975366108328249}
   pointDown: {fileID: 555678255430465498}
   shootActionReference: {fileID: 1120369429361536294, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
+  pellets: 5
+  spreadAngle: 30
 --- !u!1 &9214690349586919907
 GameObject:
   m_ObjectHideFlags: 0

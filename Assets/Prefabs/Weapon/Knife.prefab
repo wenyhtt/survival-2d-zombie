@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponMelee
   damage: 10
-  attackRange: 0.6
+  attackRange: 1
   attackCooldown: 0.2
   thrustDistance: 0.125
   thrustDuration: 0.1
