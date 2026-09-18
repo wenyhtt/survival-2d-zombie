@@ -28,6 +28,8 @@ public class Bullet : MonoBehaviour
             return;
         if (collision.CompareTag("Bullet") || collision.transform.root.CompareTag("Bullet"))
             return;
+        if (collision.CompareTag("Border") || collision.transform.root.CompareTag("Border"))
+            return;
 
         if (collision.CompareTag("Enemy"))
         {
