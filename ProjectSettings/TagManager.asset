@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - GunMan
   - Bullet
+  - Border
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - OverlayUI
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -45,5 +46,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Terrain
+    uniqueID: 2285926551
+    locked: 0
+  - name: Object
+    uniqueID: 4039394621
+    locked: 0
+  - name: Player
+    uniqueID: 3705435163
+    locked: 0
   m_RenderingLayers:
   - Default
+  - Layer 1
