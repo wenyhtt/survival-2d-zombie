@@ -176,8 +176,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -255572675
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 62f401331bf8c32aaa5d45a422726fe3, type: 3}
@@ -218,13 +218,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponShoot
   bulletPrefab: {fileID: 5163127326476692994, guid: 039b0ea812ea3fbd8a7aecbd7b126031, type: 3}
+  pellets: 5
+  spreadAngle: 30
   pointRight: {fileID: 1510841380192445411}
   pointLeft: {fileID: 2815969649341678452}
   pointUp: {fileID: 8350975366108328249}
   pointDown: {fileID: 555678255430465498}
   shootActionReference: {fileID: 1120369429361536294, guid: 3590b91b4603b465dbb4216d601bff33, type: 3}
-  pellets: 5
-  spreadAngle: 30
 --- !u!1 &9214690349586919907
 GameObject:
   m_ObjectHideFlags: 0

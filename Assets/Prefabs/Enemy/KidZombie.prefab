@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 718787449010167880}
   - component: {fileID: 8674447501556802522}
   - component: {fileID: -1198997882993317416}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: KidZombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -82,8 +82,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -255572675
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4811266198494916046, guid: 7f0ddc0f1e5294eab831c732c988f2ba, type: 3}

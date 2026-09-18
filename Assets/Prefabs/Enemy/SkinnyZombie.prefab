@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5187869615237584204}
   - component: {fileID: 1176635372259207921}
   - component: {fileID: 1714292509859516961}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SkinnyZombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -82,8 +82,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -255572675
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 88fc88873b026a8bd9e7376c86f299fb, type: 3}
@@ -212,7 +212,7 @@ MonoBehaviour:
   attackRange: 1.2
   attackDamage: 5
   attackCooldown: 1
-  scoreValue: 1
+  scoreValue: 2
 --- !u!114 &1714292509859516961
 MonoBehaviour:
   m_ObjectHideFlags: 0
