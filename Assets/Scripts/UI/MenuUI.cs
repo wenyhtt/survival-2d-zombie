@@ -3,7 +3,7 @@ using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-public class MainMenuUI : MonoBehaviour
+public class MenuUI : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button quitButton;
