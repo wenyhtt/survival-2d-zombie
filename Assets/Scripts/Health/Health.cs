@@ -6,9 +6,14 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
+    private bool isDead;
 
+    public static event System.Action OnPlayerDied;
     public event System.Action<int> OnHealthChanged;
+
     public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
+    public bool IsDead => isDead;
 
     [Tooltip("Flash the sprite red briefly when damaged.")]
     [SerializeField] private bool flashOnHit = true;
@@ -21,10 +26,14 @@ public class Health : MonoBehaviour
 
     public UnityEvent OnDeath;
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
         OnHealthChanged?.Invoke(currentHealth);
     }
 
@@ -37,7 +46,9 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
+        if (isDead) return;
+
+        currentHealth = Mathf.Max(0, currentHealth - amount);
         OnHealthChanged?.Invoke(currentHealth);
         Debug.Log($"{gameObject.name} took {amount} damage. Health: {currentHealth}/{maxHealth}");
 
@@ -48,6 +59,7 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            isDead = true;
             Die();
         }
     }
@@ -80,6 +92,7 @@ public class Health : MonoBehaviour
         if (gameObject.CompareTag("Player"))
         {
             Debug.Log("Player has died!");
+            OnPlayerDied?.Invoke();
             Destroy(gameObject);
         }
         else
