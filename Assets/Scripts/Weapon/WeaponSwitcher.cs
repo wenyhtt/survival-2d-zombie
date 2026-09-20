@@ -6,6 +6,9 @@ public class WeaponSwitcher : MonoBehaviour
 {
     [Tooltip("List of currently owned weapons. Can start with a default weapon like a handgun.")]
     [SerializeField] private List<Transform> ownedWeapons = new List<Transform>();
+
+    // Tracks source prefabs to prevent duplicate purchases
+    private readonly HashSet<GameObject> ownedPrefabs = new HashSet<GameObject>();
     
     private int currentWeaponIndex = 0;
 
@@ -25,6 +28,9 @@ public class WeaponSwitcher : MonoBehaviour
                 ownedWeapons.Add(child);
             }
         }
+
+        // Starter weapons are pre-placed in the prefab and not tracked in ownedPrefabs
+        // (they are not purchasable items, so no HashSet registration needed here)
         
         if (ownedWeapons.Count > 0)
         {
@@ -55,13 +61,30 @@ public class WeaponSwitcher : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns true if the player already owns a weapon from the given source prefab.
+    /// Used by ShopUI to disable already-purchased buttons.
+    /// </summary>
+    public bool HasWeapon(GameObject weaponPrefab)
+    {
+        return ownedPrefabs.Contains(weaponPrefab);
+    }
+
+    /// <summary>
     /// Call this method from your Shop/Sale System when a player buys a weapon.
     /// </summary>
     /// <param name="weaponPrefab">The prefab of the weapon being bought.</param>
     public void AddWeapon(GameObject weaponPrefab)
     {
+        // Guard: prevent adding a weapon the player already owns
+        if (ownedPrefabs.Contains(weaponPrefab))
+        {
+            Debug.LogWarning($"WeaponSwitcher: Player already owns '{weaponPrefab.name}'. Purchase blocked.");
+            return;
+        }
+
         // Instantiate the new weapon as a child of this Weapon parent
         GameObject newWeapon = Instantiate(weaponPrefab, transform);
+        ownedPrefabs.Add(weaponPrefab);
         ownedWeapons.Add(newWeapon.transform);
         
         // Auto-equip the newly bought weapon

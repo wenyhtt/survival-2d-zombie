@@ -14,6 +14,8 @@ public struct GunManShopItem
 public class GunManInteract : MonoBehaviour
 {
     [SerializeField] private List<GunManShopItem> weaponsForSale;
+    // [SerializeField] public GameObject Shotgun;
+    // [SerializeField] public GameObject Handgun;
     [SerializeField] private InputActionReference interactAction;
     
     private bool isPlayerNearby = false;
@@ -47,9 +49,9 @@ public class GunManInteract : MonoBehaviour
         {
             isPlayerNearby = false;
             playerTransform = null;
-            if (GunManShopUI.Instance != null && GunManShopUI.Instance.IsOpen)
+            if (ShopUI.Instance != null && ShopUI.Instance.IsOpen)
             {
-                GunManShopUI.Instance.CloseShop();
+                ShopUI.Instance.CloseShop();
             }
         }
     }
@@ -58,10 +60,10 @@ public class GunManInteract : MonoBehaviour
     {
         if (isPlayerNearby && interactAction != null && interactAction.action.WasPressedThisFrame())
         {
-            if (!GunManShopUI.Instance.IsOpen)
-                GunManShopUI.Instance.OpenShop(weaponsForSale, playerTransform);
+            if (!ShopUI.Instance.IsOpen)
+                ShopUI.Instance.OpenShop(weaponsForSale, playerTransform);
             else
-                GunManShopUI.Instance.CloseShop();
+                ShopUI.Instance.CloseShop();
         }
     }
 }
