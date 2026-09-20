@@ -10,11 +10,11 @@
       "hash": "4a22db964018243833698286cc1ffef5925d8ae5"
     },
     "com.unity.2d.animation": {
-      "version": "13.0.5",
+      "version": "13.0.6",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "12.0.3",
+        "com.unity.2d.common": "12.0.4",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.collections": "2.4.3",
         "com.unity.modules.animation": "1.0.0",
@@ -97,7 +97,7 @@
       }
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "6.0.2",
+      "version": "6.0.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -128,7 +128,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "2.12.4",
+      "version": "2.13.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -158,13 +158,13 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.2d.animation": "13.0.5",
+        "com.unity.2d.animation": "13.0.6",
         "com.unity.2d.pixel-perfect": "5.1.1",
         "com.unity.2d.psdimporter": "12.0.2",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.2d.spriteshape": "13.0.0",
         "com.unity.2d.tilemap": "1.0.0",
-        "com.unity.2d.tilemap.extras": "6.0.2",
+        "com.unity.2d.tilemap.extras": "6.0.3",
         "com.unity.2d.aseprite": "3.0.2",
         "com.unity.2d.tooling": "1.0.4"
       }
@@ -263,7 +263,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.render-pipelines.core": "17.3.0",
-        "com.unity.searcher": "4.9.3"
+        "com.unity.searcher": "4.9.5"
       }
     },
     "com.unity.sysroot.base": {
@@ -294,7 +294,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.12",
+      "version": "1.8.13",
       "depth": 0,
       "source": "registry",
       "dependencies": {
