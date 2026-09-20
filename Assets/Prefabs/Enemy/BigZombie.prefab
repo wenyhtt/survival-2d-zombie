@@ -163,7 +163,7 @@ MonoBehaviour:
   moveSpeed: 0.6
   useAggroRange: 0
   aggroRange: 15
-  attackRange: 0.9
+  attackRange: 1.5
   attackDamage: 40
   attackCooldown: 1
   scoreValue: 3
