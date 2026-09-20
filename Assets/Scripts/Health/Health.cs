@@ -88,7 +88,7 @@ public class Health : MonoBehaviour
         {
             OnDeath.Invoke();
         }
-        
+
         if (gameObject.CompareTag("Player"))
         {
             Debug.Log("Player has died!");
@@ -98,7 +98,7 @@ public class Health : MonoBehaviour
         else
         {
             // Award score to player if this enemy has a score value
-            EnemyAI enemy = GetComponent<EnemyAI>();
+            EnemyScoreValue enemy = GetComponent<EnemyScoreValue>();
             if (enemy != null)
             {
                 GameObject playerObj = GameObject.FindGameObjectWithTag("Player");

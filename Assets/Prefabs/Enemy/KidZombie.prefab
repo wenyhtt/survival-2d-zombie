@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 718787449010167880}
   - component: {fileID: 8674447501556802522}
   - component: {fileID: -1198997882993317416}
+  - component: {fileID: -48738538108720360}
+  - component: {fileID: 1794284403456507760}
   m_Layer: 7
   m_Name: KidZombie
   m_TagString: Enemy
@@ -206,13 +208,6 @@ MonoBehaviour:
   walkSideClip: {fileID: 7400000, guid: ffde11a7c19e61affbd0bb3f6e5d355b, type: 2}
   walkUpClip: {fileID: 7400000, guid: d9261a7376b0f3c0da5ab4202bec2008, type: 2}
   walkDownClip: {fileID: 7400000, guid: 907744c3c63cc2a1dbab8c3ac16d5da5, type: 2}
-  moveSpeed: 1.5
-  useAggroRange: 0
-  aggroRange: 10
-  attackRange: 1
-  attackDamage: 5
-  attackCooldown: 1
-  scoreValue: 1
 --- !u!114 &-1198997882993317416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,3 +226,63 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-48738538108720360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875379627089680677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
+  m_Graph: {fileID: -3137164227666073872, guid: b5e2aae9177074b0796a76a911c7c827, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 9123681985899790576
+  - rid: 9123681985899791286
+  - rid: 9123681985899791287
+  m_OriginalGraph: {fileID: 0}
+  m_IsInitialised: 0
+  m_IsStarted: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 9123681985899790576
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 3875379627089680677}
+    - rid: 9123681985899791286
+      type: {class: 'BlackboardVariable`1[[System.Int32, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 5157651033489353550
+          m_Value1: 825035344784259798
+        Name: AttackDamage
+        m_Value: 1
+    - rid: 9123681985899791287
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 13067277821051711469
+          m_Value1: 17775193189393015633
+        Name: AttackCooldown
+        m_Value: 0.7
+--- !u!114 &1794284403456507760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875379627089680677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecfbb43374c64e89a18886f4aa8c571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScoreValue
+  scoreValue: 2

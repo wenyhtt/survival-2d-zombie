@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyAI : MonoBehaviour
+public class EnemyFacing : MonoBehaviour
 {
     private const float WalkSkipFirstFrame = 0.48f;
 
@@ -10,25 +10,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AnimationClip walkUpClip;
     [SerializeField] private AnimationClip walkDownClip;
 
-    [SerializeField] private float moveSpeed = 0.8f;
-    [SerializeField] private bool useAggroRange = false; // If false, chases infinitely
-    [SerializeField] private float aggroRange = 10f;
-    [SerializeField] private float attackRange = 1.2f;
-
-    [Header("Combat Settings")]
-    [SerializeField] private int attackDamage = 10;
-    [SerializeField] private float attackCooldown = 1f;
-
-    [Header("Score")]
-    [SerializeField] private int scoreValue = 10;
-    public int ScoreValue => scoreValue;
-
-    private float lastAttackTime;
-
-    private Transform player;
-    private Rigidbody2D rigidBody;
     private Animator animator;
     private SpriteRenderer[] childRenderers;
+    private Rigidbody2D rigidBody;
 
     private int currentAnimation;
     private int walkSide;
@@ -46,13 +30,13 @@ public class EnemyAI : MonoBehaviour
 
         if (animator == null)
         {
-            Debug.LogWarning($"{name} has no Animator for EnemyAI animations.", this);
+            Debug.LogWarning($"{name} has no Animator for EnemyFacing animations.", this);
             return;
         }
 
         if (animator.runtimeAnimatorController == null)
         {
-            Debug.LogWarning($"{name} has no Animator Controller for EnemyAI animations.", this);
+            Debug.LogWarning($"{name} has no Animator Controller for EnemyFacing animations.", this);
             return;
         }
 
@@ -61,62 +45,10 @@ public class EnemyAI : MonoBehaviour
         walkDown = GetAnimationStateHash(walkDownClip, "down");
     }
 
-    private void Start()
+    private void Update()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            player = playerObj.transform;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (player == null)
-        {
-            PlayMovementAnimation(Vector2.zero);
-            return;
-        }
-
-        Vector2 directionToPlayer = player.position - transform.position;
-        float distance = directionToPlayer.magnitude;
-
-        bool withinAggro = !useAggroRange || distance <= aggroRange;
-
-        if (withinAggro && distance > attackRange)
-        {
-            // Chase Player
-            Vector2 movement = directionToPlayer.normalized;
-            PlayMovementAnimation(movement);
-            rigidBody.MovePosition(rigidBody.position + movement * moveSpeed * Time.fixedDeltaTime);
-        }
-        else if (distance <= attackRange)
-        {
-            // Stop and Attack Player
-            PlayMovementAnimation(Vector2.zero);
-            
-            if (Time.time - lastAttackTime >= attackCooldown)
-            {
-                AttackPlayer();
-                lastAttackTime = Time.time;
-            }
-        }
-        else
-        {
-            PlayMovementAnimation(Vector2.zero);
-        }
-    }
-
-    private void AttackPlayer()
-    {
-        if (player != null)
-        {
-            Health playerHealth = player.GetComponent<Health>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(attackDamage);
-            }
-        }
+        // Use the Rigidbody's velocity (set by Behavior Tree) to determine animation and facing
+        PlayMovementAnimation(rigidBody.linearVelocity);
     }
 
     private void LateUpdate()
@@ -142,7 +74,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         bool startedWalking = !wasMoving;
-
         int nextAnimation;
 
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
@@ -179,7 +110,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (clip == null)
         {
-            Debug.LogWarning($"{name} has no {direction} .anim clip attached to EnemyAI.", this);
+            Debug.LogWarning($"{name} has no {direction} .anim clip attached to EnemyFacing.", this);
             return 0;
         }
 
@@ -202,7 +133,9 @@ public class EnemyAI : MonoBehaviour
             if (childRenderers != null)
             {
                 foreach (SpriteRenderer sr in childRenderers)
+                {
                     sr.flipX = isFacingRight;
+                }
             }
         }
     }

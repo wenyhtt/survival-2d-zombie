@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 3609910398465466486}
   - component: {fileID: 724629608514834022}
   - component: {fileID: 5187869615237584204}
-  - component: {fileID: 1176635372259207921}
   - component: {fileID: 1714292509859516961}
+  - component: {fileID: -3434912774122220776}
+  - component: {fileID: 3634062756757758596}
+  - component: {fileID: 1210331880082738827}
   m_Layer: 7
   m_Name: SkinnyZombie
   m_TagString: Enemy
@@ -84,7 +86,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -255572675
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 88fc88873b026a8bd9e7376c86f299fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -191,28 +193,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.625, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1176635372259207921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890803362148452916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1834af0057cb97f0a969b0041b17b54a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  walkSideClip: {fileID: 7400000, guid: 9cf8fb17c82c25dbfa9b45528dcc8138, type: 2}
-  walkUpClip: {fileID: 7400000, guid: bde7f7aa4e38baf8b8aea4d8d742fe53, type: 2}
-  walkDownClip: {fileID: 7400000, guid: 594c4b7802178814589101f3a8d0fd38, type: 2}
-  moveSpeed: 1
-  useAggroRange: 0
-  aggroRange: 10
-  attackRange: 1.2
-  attackDamage: 5
-  attackCooldown: 1
-  scoreValue: 2
 --- !u!114 &1714292509859516961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,3 +211,69 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-3434912774122220776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890803362148452916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
+  m_Graph: {fileID: -3137164227666073872, guid: b5e2aae9177074b0796a76a911c7c827, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 9123681985899790759
+  - rid: 9123681985899791284
+  m_OriginalGraph: {fileID: -3137164227666073872, guid: b5e2aae9177074b0796a76a911c7c827, type: 2}
+  m_IsInitialised: 0
+  m_IsStarted: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 9123681985899790759
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 3890803362148452916}
+    - rid: 9123681985899791284
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 9634159354972164439
+          m_Value1: 7026861674215621432
+        Name: Speed
+        m_Value: 2
+--- !u!114 &3634062756757758596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890803362148452916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1834af0057cb97f0a969b0041b17b54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyFacing
+  walkSideClip: {fileID: 7400000, guid: 9cf8fb17c82c25dbfa9b45528dcc8138, type: 2}
+  walkUpClip: {fileID: 7400000, guid: bde7f7aa4e38baf8b8aea4d8d742fe53, type: 2}
+  walkDownClip: {fileID: 7400000, guid: 594c4b7802178814589101f3a8d0fd38, type: 2}
+--- !u!114 &1210331880082738827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890803362148452916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eecfbb43374c64e89a18886f4aa8c571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyScoreValue
+  scoreValue: 3

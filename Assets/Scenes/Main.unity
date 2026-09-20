@@ -262,7 +262,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 3875379627089680677, guid: f0e3a9bfb3107ffe7925c9ea8861fda3, type: 3}
   - {fileID: 7796053814925734281, guid: 1afe306eed0607460bad2a0d1c597da3, type: 3}
-  - {fileID: 3890803362148452916, guid: b2616fccf8df5699785a2ae619409759, type: 3}
+  - {fileID: 3890803362148452916, guid: 1cdaf5748f1b64d5fa9d1e51e500adff, type: 3}
   maxEnemiesAlive: 25
   areaSize: {x: 70, y: 40}
   spawnOnEdge: 1
@@ -842,7 +842,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421532103}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 21.8125, y: 11.9375, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2000,13 +2000,13 @@ SceneRoots:
   m_Roots:
   - {fileID: 1722175777}
   - {fileID: 1990063372}
-  - {fileID: 6037620302834826228}
-  - {fileID: 462077016}
-  - {fileID: 3856781905567248063}
-  - {fileID: 1956964929}
   - {fileID: 1645257294}
+  - {fileID: 4738630015091216479}
   - {fileID: 5920355799128486726}
+  - {fileID: 1956964929}
   - {fileID: 2129765113}
   - {fileID: 1631296011}
+  - {fileID: 462077016}
+  - {fileID: 6037620302834826228}
+  - {fileID: 3856781905567248063}
   - {fileID: 1421532106}
-  - {fileID: 4738630015091216479}
