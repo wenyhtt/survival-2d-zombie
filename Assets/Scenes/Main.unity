@@ -249,7 +249,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462077014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14db6449daf53795aa6a33298a06fbcb, type: 3}
   m_Name: 
@@ -265,7 +265,7 @@ MonoBehaviour:
   - {fileID: 3890803362148452916, guid: 1cdaf5748f1b64d5fa9d1e51e500adff, type: 3}
   maxEnemiesAlive: 25
   areaSize: {x: 70, y: 40}
-  spawnOnEdge: 1
+  spawnOnEdge: 0
   gizmoColor: {r: 1, g: 0, b: 0, a: 0.5}
 --- !u!1 &480103312
 GameObject:
