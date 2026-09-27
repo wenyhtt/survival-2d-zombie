@@ -249,7 +249,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462077014}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14db6449daf53795aa6a33298a06fbcb, type: 3}
   m_Name: 
@@ -1907,6 +1907,14 @@ PrefabInstance:
     - target: {fileID: 3094929713666362301, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094929713666362301, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240669486676496321, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+      propertyPath: startingScore
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 6326064253081094333, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -30,6 +30,10 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private List<GameObject> shuffledPrefabs = new List<GameObject>();
     private GameObject currentWavePrefab;
+    private Transform playerTransform;
+    private Rigidbody2D playerRigidbody;
+    private Vector2 playerSpawnPosition;
+    private bool hasPlayerSpawnPosition;
 
     public SpawnState CurrentState => state;
     public int CurrentWaveNumber => currentWaveIndex + 1;
@@ -51,6 +55,17 @@ public class EnemySpawner : MonoBehaviour
     {
         waveCountdown = timeBetweenWaves;
         currentWaveEnemyCount = baseEnemyCount;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
+            playerSpawnPosition = playerRigidbody != null
+                ? playerRigidbody.position
+                : playerTransform.position;
+            hasPlayerSpawnPosition = true;
+        }
     }
 
     private void Update()
@@ -89,6 +104,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void CompleteWave()
     {
+        ReturnPlayerToSpawn();
+
         currentWaveIndex++;
         int increment = Random.Range(waveIncrementMin, waveIncrementMax + 1);
         currentWaveEnemyCount += increment;
@@ -97,6 +114,33 @@ public class EnemySpawner : MonoBehaviour
 
         waveCountdown = timeBetweenWaves;
         state = SpawnState.CountingDown;
+    }
+
+    private void ReturnPlayerToSpawn()
+    {
+        if (!hasPlayerSpawnPosition)
+            return;
+
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null)
+                return;
+
+            playerTransform = player.transform;
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
+        }
+
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.position = playerSpawnPosition;
+            playerRigidbody.linearVelocity = Vector2.zero;
+        }
+        else
+        {
+            Vector3 position = playerTransform.position;
+            playerTransform.position = new Vector3(playerSpawnPosition.x, playerSpawnPosition.y, position.z);
+        }
     }
 
     private void SpawnEnemy()
