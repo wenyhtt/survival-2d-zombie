@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int baseEnemyCount = 25;
     [SerializeField] private int waveIncrementMin = 3;
     [SerializeField] private int waveIncrementMax = 8;
-    [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float timeBetweenWaves = 5f;
 
     [Header("Spawner Settings")]
@@ -27,7 +26,6 @@ public class EnemySpawner : MonoBehaviour
     private int currentWaveEnemyCount;
     private int enemiesSpawnedThisWave;
     private float waveCountdown;
-    private float spawnTimer;
     private SpawnState state = SpawnState.CountingDown;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private List<GameObject> shuffledPrefabs = new List<GameObject>();
@@ -67,11 +65,9 @@ public class EnemySpawner : MonoBehaviour
         }
         else if (state == SpawnState.Spawning)
         {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnInterval && spawnedEnemies.Count < maxEnemiesAlive)
+            while (enemiesSpawnedThisWave < currentWaveEnemyCount && spawnedEnemies.Count < maxEnemiesAlive)
             {
                 SpawnEnemy();
-                spawnTimer = 0f;
             }
         }
         else if (state == SpawnState.WaitingForDeath && spawnedEnemies.Count == 0)
@@ -83,7 +79,6 @@ public class EnemySpawner : MonoBehaviour
     private void StartWave()
     {
         enemiesSpawnedThisWave = 0;
-        spawnTimer = 0f;
         currentWavePrefab = GetNextWavePrefab();
 
         if (currentWaveEnemyCount <= 0 || currentWavePrefab == null || maxEnemiesAlive <= 0)

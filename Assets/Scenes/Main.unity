@@ -249,7 +249,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462077014}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14db6449daf53795aa6a33298a06fbcb, type: 3}
   m_Name: 
@@ -257,14 +257,13 @@ MonoBehaviour:
   baseEnemyCount: 25
   waveIncrementMin: 3
   waveIncrementMax: 8
-  spawnInterval: 2
   timeBetweenWaves: 5
   enemyPrefabs:
   - {fileID: 3875379627089680677, guid: f0e3a9bfb3107ffe7925c9ea8861fda3, type: 3}
   - {fileID: 7796053814925734281, guid: 1afe306eed0607460bad2a0d1c597da3, type: 3}
   - {fileID: 3890803362148452916, guid: 1cdaf5748f1b64d5fa9d1e51e500adff, type: 3}
   maxEnemiesAlive: 25
-  areaSize: {x: 70, y: 40}
+  areaSize: {x: 60, y: 30}
   spawnOnEdge: 0
   gizmoColor: {r: 1, g: 0, b: 0, a: 0.5}
 --- !u!1 &480103312
@@ -1175,7 +1174,7 @@ Transform:
   m_GameObject: {fileID: 1722175774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -4.46, y: 3.26, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1562,6 +1561,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2023909379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2723863757100302827, guid: 96620342e4208d7319cfadea21ea066e, type: 3}
+  m_PrefabInstance: {fileID: 5920355799128486726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &2023909386
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023909379}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -4.4931045, y: 3}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 7.013791, y: 6}
+  m_EdgeRadius: 0
 --- !u!1 &2129765112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,10 +1942,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tilemap
       objectReference: {fileID: 0}
+    - target: {fileID: 7240509170725603349, guid: 96620342e4208d7319cfadea21ea066e, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7240509170725603349, guid: 96620342e4208d7319cfadea21ea066e, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2723863757100302827, guid: 96620342e4208d7319cfadea21ea066e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2023909386}
   m_SourcePrefab: {fileID: 100100000, guid: 96620342e4208d7319cfadea21ea066e, type: 3}
 --- !u!1001 &6037620302834826228
 PrefabInstance:
@@ -1909,13 +1970,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3094929713666362301, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453855929303625419, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6326064253081094333, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.46
       objectReference: {fileID: 0}
     - target: {fileID: 6326064253081094333, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.26
       objectReference: {fileID: 0}
     - target: {fileID: 6326064253081094333, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1948,6 +2017,10 @@ PrefabInstance:
     - target: {fileID: 6326064253081094333, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875884246377496417, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8672544818044972522, guid: 41107adc730e2d784b48f3152e79706b, type: 3}
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
