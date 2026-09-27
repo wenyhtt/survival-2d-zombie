@@ -148,16 +148,15 @@ Returns `Running` while chasing, `Success` when close enough, `Failure` if refs 
 ## 🔫 Weapons
 
 ### [`WeaponShoot.cs`](../Assets/Scripts/Weapon/WeaponShoot.cs)
-Ranged weapon — fires bullets toward the mouse cursor.
+Ranged weapon — fires bullets in the player's facing direction.
 
 | Inspector Field | Description |
 |---|---|
 | `bulletPrefab` | Bullet GameObject to instantiate |
-| `firePoint` | Transform used as bullet origin |
-| `fireRate` | Shots per second |
-| `bulletsPerShot` | Bullets fired per click (for shotgun-style spread) |
+| `pointRight/Left/Up/Down` | Projectile origin for each facing direction |
+| `pellets` | Bullets fired per shot |
 | `spreadAngle` | Max spread in degrees for multi-bullet shots |
-| `attackActionReference` | Input Action for firing |
+| `shootActionReference` | Input Action for firing |
 
 ---
 

@@ -28,10 +28,17 @@ Waves get harder over time — enemies grow in number and health. Stay alive!
 
 ## 📚 Documentation
 
-Full docs are in the [`docs/`](./docs/README.md) folder:
+Choose a language:
+
+- **English:** [`docs/`](./docs/README.md)
+- **Bahasa Indonesia:** [`docs/id/`](./docs/id/README.md)
+
+English documentation:
 
 - [Game Overview](./docs/game-overview.md)
 - [Controls](./docs/controls.md)
 - [Enemy System](./docs/enemy-system.md)
 - [Weapon System](./docs/weapon-system.md)
+- [Systems Reference](./docs/systems-reference.md)
+- [Contributing](./docs/contributing.md)
 - [Architecture](./docs/architecture.md)

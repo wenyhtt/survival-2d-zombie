@@ -23,7 +23,7 @@ Guidelines for adding new scripts, systems, or content to **Survival 2D Zombie**
 
 ## ➕ Adding a New Enemy Type
 
-1. Create a new enemy prefab in `Assets/Prefabs/Enemies/`.
+1. Create a new enemy prefab in `Assets/Prefabs/Enemy/`.
 2. Add required components:
    - `Rigidbody2D` (2D, typically `Kinematic` or `Dynamic`)
    - `Collider2D` (for physics and bullet hit detection) — tag it `"Enemy"`
@@ -39,7 +39,7 @@ Guidelines for adding new scripts, systems, or content to **Survival 2D Zombie**
 
 ### Ranged Weapon
 1. Create a weapon prefab (sprite + `WeaponShoot` + `WeaponFacing`).
-2. Configure `bulletPrefab`, `firePoint`, `fireRate`, `bulletsPerShot`, `spreadAngle`.
+2. Configure `bulletPrefab`, the four directional projectile points, `pellets`, and `spreadAngle`.
 3. Assign the shoot `InputActionReference`.
 4. Add to the GunMan's `weaponsForSale` list in the Inspector with a name and price.
 

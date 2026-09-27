@@ -2,6 +2,8 @@
 
 Welcome to the project documentation for **Survival 2D Zombie**, a top-down 2D zombie survival game built with Unity.
 
+Dokumentasi Bahasa Indonesia tersedia di [`docs/id/`](./id/README.md).
+
 ---
 
 ## 📖 Table of Contents
@@ -15,6 +17,8 @@ Welcome to the project documentation for **Survival 2D Zombie**, a top-down 2D z
 | [Enemy System](./enemy-system.md) | Wave spawning, AI behavior tree, and enemy scaling |
 | [Weapon System](./weapon-system.md) | Ranged and melee weapons, switching, and shop integration |
 | [Contributing](./contributing.md) | Guidelines for adding new features and scripts |
+
+An Indonesian translation is available in [`docs/id/`](./id/README.md).
 
 ---
 
