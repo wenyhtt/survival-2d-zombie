@@ -132,8 +132,8 @@ MonoBehaviour:
           rid: 9123681985899790721
         BlackboardGroupReferences: []
         Root:
-          rid: 9123682123138728197
-        m_VersionTimestamp: 639261028845165570
+          rid: 9123682123138728204
+        m_VersionTimestamp: 639261036706808700
     - rid: 9123681985899790721
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -207,7 +207,7 @@ MonoBehaviour:
           m_Value1: 825035344784259798
         Name: AttackDamage
         m_Value: 3
-    - rid: 9123682123138728197
+    - rid: 9123682123138728204
       type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
@@ -218,10 +218,10 @@ MonoBehaviour:
         m_Parent:
           rid: -2
         m_Child:
-          rid: 9123682123138728198
+          rid: 9123682123138728205
         Repeat: 1
         AllowMultipleRepeatsPerTick: 0
-    - rid: 9123682123138728198
+    - rid: 9123682123138728205
       type: {class: SelectorComposite, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
@@ -230,26 +230,12 @@ MonoBehaviour:
         Graph:
           rid: 9123681985899790720
         m_Parent:
-          rid: 9123682123138728197
+          rid: 9123682123138728204
         m_Children:
-        - rid: 9123682123138728199
-        - rid: 9123682123138728200
+        - rid: 9123682123138728206
+        - rid: 9123682123138728207
         m_RegisteredObservers: []
-    - rid: 9123682123138728199
-      type: {class: IdleAction, ns: , asm: Assembly-CSharp}
-      data:
-        ID:
-          m_Value0: 10851021200191331230
-          m_Value1: 14428739875160578484
-        Graph:
-          rid: 9123681985899790720
-        m_Parent:
-          rid: 9123682123138728198
-        Speed:
-          rid: 9123681985899791298
-        Self:
-          rid: 9123681985899791296
-    - rid: 9123682123138728200
+    - rid: 9123682123138728206
       type: {class: SequenceComposite, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         ID:
@@ -258,13 +244,27 @@ MonoBehaviour:
         Graph:
           rid: 9123681985899790720
         m_Parent:
-          rid: 9123682123138728198
+          rid: 9123682123138728205
         m_Children:
-        - rid: 9123682123138728201
-        - rid: 9123682123138728202
-        - rid: 9123682123138728203
+        - rid: 9123682123138728208
+        - rid: 9123682123138728209
+        - rid: 9123682123138728210
         m_RegisteredObservers: []
-    - rid: 9123682123138728201
+    - rid: 9123682123138728207
+      type: {class: IdleAction, ns: , asm: Assembly-CSharp}
+      data:
+        ID:
+          m_Value0: 10851021200191331230
+          m_Value1: 14428739875160578484
+        Graph:
+          rid: 9123681985899790720
+        m_Parent:
+          rid: 9123682123138728205
+        Speed:
+          rid: 9123681985899791298
+        Self:
+          rid: 9123681985899791296
+    - rid: 9123682123138728208
       type: {class: SeeAction, ns: , asm: Assembly-CSharp}
       data:
         ID:
@@ -273,12 +273,12 @@ MonoBehaviour:
         Graph:
           rid: 9123681985899790720
         m_Parent:
-          rid: 9123682123138728200
+          rid: 9123682123138728206
         Self:
           rid: 9123681985899791296
         Player:
           rid: 9123681985899791297
-    - rid: 9123682123138728202
+    - rid: 9123682123138728209
       type: {class: ChaseAction, ns: , asm: Assembly-CSharp}
       data:
         ID:
@@ -287,7 +287,7 @@ MonoBehaviour:
         Graph:
           rid: 9123681985899790720
         m_Parent:
-          rid: 9123682123138728200
+          rid: 9123682123138728206
         Self:
           rid: 9123681985899791296
         Player:
@@ -296,7 +296,7 @@ MonoBehaviour:
           rid: 9123681985899791298
         StopDistance:
           rid: 9123681985899791299
-    - rid: 9123682123138728203
+    - rid: 9123682123138728210
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
         ID:
@@ -305,7 +305,7 @@ MonoBehaviour:
         Graph:
           rid: 9123681985899790720
         m_Parent:
-          rid: 9123682123138728200
+          rid: 9123682123138728206
         Self:
           rid: 9123681985899791296
         Player:
@@ -338,7 +338,7 @@ MonoBehaviour:
   - rid: 9123682123138728012
   - rid: 9123682123138728070
   - rid: 9123682123138728119
-  m_VersionTimestamp: 639261028845165570
+  m_VersionTimestamp: 639261036706808700
   m_SerializedVersion: 3
   m_DebugInfo: {fileID: 6753463482444472822}
   m_RuntimeGraph: {fileID: -3137164227666073872}
@@ -530,7 +530,7 @@ MonoBehaviour:
     - rid: 9123681985899790739
       type: {class: CompositeNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: 23.633108, y: 151.50714}
+        Position: {x: -196.46547, y: 148.6111}
         ID:
           m_Value0: 17628751329883717566
           m_Value1: 12518145269808359792
@@ -570,7 +570,7 @@ MonoBehaviour:
     - rid: 9123681985899790744
       type: {class: ActionNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: 24.291805, y: 313.5222}
+        Position: {x: -195.80678, y: 310.62616}
         ID:
           m_Value0: 13102079484449527404
           m_Value1: 15290673451014233791
@@ -727,7 +727,7 @@ MonoBehaviour:
     - rid: 9123681985899791010
       type: {class: ActionNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: 171.20695, y: 311.06583}
+        Position: {x: -48.89165, y: 308.1698}
         ID:
           m_Value0: 7574804369750506710
           m_Value1: 155915512507623660
@@ -914,7 +914,7 @@ MonoBehaviour:
     - rid: 9123682123138728012
       type: {class: ActionNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: -123.067764, y: 312.33823}
+        Position: {x: -343.16626, y: 309.4422}
         ID:
           m_Value0: 35907194126546855
           m_Value1: 14095791363665556793
@@ -1011,7 +1011,7 @@ MonoBehaviour:
     - rid: 9123682123138728070
       type: {class: ActionNodeModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:
-        Position: {x: -229.63725, y: 189.46483}
+        Position: {x: 54.14796, y: 192.51884}
         ID:
           m_Value0: 10851021200191331230
           m_Value1: 14428739875160578484
@@ -1113,8 +1113,8 @@ MonoBehaviour:
         m_NodeModel:
           rid: 9123682123138728119
         m_Connections:
-        - rid: 9123682123138728071
         - rid: 9123681985899790740
+        - rid: 9123682123138728071
     - rid: 9123682123138728165
       type: {class: BehaviorGraphNodeModel/FieldModel, ns: Unity.Behavior, asm: Unity.Behavior.Authoring}
       data:

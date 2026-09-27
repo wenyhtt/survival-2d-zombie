@@ -20,7 +20,6 @@ public partial class IdleAction : Action
     private Vector2 _homePosition;
     private Vector2 _destination;
     private float _pauseRemaining;
-    private bool _hasHomePosition;
     private bool _isPausing;
 
     protected override Status OnStart()
@@ -32,12 +31,7 @@ public partial class IdleAction : Action
         if (_rigidbody == null)
             return Status.Failure;
 
-        if (!_hasHomePosition)
-        {
-            _homePosition = _rigidbody.position;
-            _hasHomePosition = true;
-        }
-
+        _homePosition = _rigidbody.position;
         _destination = _homePosition + UnityEngine.Random.insideUnitCircle * RoamRadius;
         _isPausing = false;
         _pauseRemaining = 0f;
