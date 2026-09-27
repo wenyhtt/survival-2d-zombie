@@ -11,18 +11,33 @@ public partial class SeeAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<GameObject> Player;
 
+    private EnemyVision _vision;
+
     protected override Status OnStart()
     {
+        if (Player.Value == null || !Player.Value.scene.IsValid() || !Player.Value.activeInHierarchy)
+            Player.Value = GameObject.FindGameObjectWithTag("Player");
+
+        if (Self.Value == null || Player.Value == null)
+            return Status.Failure;
+
+        _vision = Self.Value.GetComponent<EnemyVision>();
+        if (_vision == null)
+            return Status.Failure;
+
         return Status.Running;
     }
 
     protected override Status OnUpdate()
     {
-        return Status.Success;
+        if (_vision == null || Player.Value == null)
+            return Status.Failure;
+
+        return _vision.CanSeePlayer(Player.Value) ? Status.Success : Status.Failure;
     }
 
     protected override void OnEnd()
     {
+        _vision = null;
     }
 }
-

@@ -14,6 +14,7 @@ public partial class ChaseAction : Action
     [SerializeReference] public BlackboardVariable<float> StopDistance;
 
     private Rigidbody2D _rb;
+    private EnemyVision _vision;
 
     protected override Status OnStart()
     {
@@ -28,7 +29,8 @@ public partial class ChaseAction : Action
             return Status.Failure;
 
         _rb = Self.Value.GetComponent<Rigidbody2D>();
-        if (_rb == null)
+        _vision = Self.Value.GetComponent<EnemyVision>();
+        if (_rb == null || _vision == null)
             return Status.Failure;
 
         return Status.Running;
@@ -36,8 +38,14 @@ public partial class ChaseAction : Action
 
     protected override Status OnUpdate()
     {
-        if (_rb == null || Player.Value == null)
+        if (_rb == null || _vision == null || Player.Value == null)
             return Status.Failure;
+
+        if (!_vision.CanSeePlayer(Player.Value))
+        {
+            _rb.linearVelocity = Vector2.zero;
+            return Status.Failure;
+        }
 
         Vector2 toTarget = (Vector2)Player.Value.transform.position - _rb.position;
 
@@ -55,5 +63,8 @@ public partial class ChaseAction : Action
     {
         if (_rb != null)
             _rb.linearVelocity = Vector2.zero;
+
+        _rb = null;
+        _vision = null;
     }
 }

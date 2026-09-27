@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -3434912774122220776}
   - component: {fileID: 3634062756757758596}
   - component: {fileID: 1210331880082738827}
+  - component: {fileID: 781420001001001001}
   m_Layer: 7
   m_Name: SkinnyZombie
   m_TagString: Enemy
@@ -277,3 +278,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyScoreValue
   scoreValue: 3
+--- !u!114 &781420001001001001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890803362148452916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47f2a9c731f4fd1aeb1f2287845c3a6, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
+  sightRange: 8
+  checkInterval: 1
+  sightLayers:
+    serializedVersion: 2
+    m_Bits: 769
