@@ -9,6 +9,7 @@ TagManager:
   - GunMan
   - Bullet
   - Border
+  - InteriorWall
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - UI
   - OverlayUI
   - Enemy
-  - 
-  - 
+  - Interior
+  - Player
   - 
   - 
   - 

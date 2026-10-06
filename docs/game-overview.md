@@ -29,7 +29,7 @@ START → Countdown → Wave Begins → Kill Enemies → Earn Score
 | Feature | Description |
 |---|---|
 | Wave System | Infinite escalating waves with random enemy count increase per wave |
-| Ranged Weapons | Shoot bullets toward the mouse cursor with spread support |
+| Ranged Weapons | Shoot in the player's facing direction with spread support |
 | Melee Weapon | Close-range attack with visual thrust animation |
 | Weapon Switching | Switch between owned weapons using number keys (1–9) |
 | In-Game Shop | Buy weapons from a GunMan NPC using earned score |

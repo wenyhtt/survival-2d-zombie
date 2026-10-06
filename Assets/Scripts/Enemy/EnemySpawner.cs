@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private int baseEnemyCount = 25;
     [SerializeField] private int waveIncrementMin = 3;
     [SerializeField] private int waveIncrementMax = 8;
-    [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private float timeBetweenWaves = 5f;
 
     [Header("Spawner Settings")]
@@ -27,11 +26,14 @@ public class EnemySpawner : MonoBehaviour
     private int currentWaveEnemyCount;
     private int enemiesSpawnedThisWave;
     private float waveCountdown;
-    private float spawnTimer;
     private SpawnState state = SpawnState.CountingDown;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     private List<GameObject> shuffledPrefabs = new List<GameObject>();
     private GameObject currentWavePrefab;
+    private Transform playerTransform;
+    private Rigidbody2D playerRigidbody;
+    private Vector2 playerSpawnPosition;
+    private bool hasPlayerSpawnPosition;
 
     public SpawnState CurrentState => state;
     public int CurrentWaveNumber => currentWaveIndex + 1;
@@ -53,6 +55,17 @@ public class EnemySpawner : MonoBehaviour
     {
         waveCountdown = timeBetweenWaves;
         currentWaveEnemyCount = baseEnemyCount;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
+            playerSpawnPosition = playerRigidbody != null
+                ? playerRigidbody.position
+                : playerTransform.position;
+            hasPlayerSpawnPosition = true;
+        }
     }
 
     private void Update()
@@ -67,11 +80,9 @@ public class EnemySpawner : MonoBehaviour
         }
         else if (state == SpawnState.Spawning)
         {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnInterval && spawnedEnemies.Count < maxEnemiesAlive)
+            while (enemiesSpawnedThisWave < currentWaveEnemyCount && spawnedEnemies.Count < maxEnemiesAlive)
             {
                 SpawnEnemy();
-                spawnTimer = 0f;
             }
         }
         else if (state == SpawnState.WaitingForDeath && spawnedEnemies.Count == 0)
@@ -83,7 +94,6 @@ public class EnemySpawner : MonoBehaviour
     private void StartWave()
     {
         enemiesSpawnedThisWave = 0;
-        spawnTimer = 0f;
         currentWavePrefab = GetNextWavePrefab();
 
         if (currentWaveEnemyCount <= 0 || currentWavePrefab == null || maxEnemiesAlive <= 0)
@@ -94,6 +104,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void CompleteWave()
     {
+        ReturnPlayerToSpawn();
+
         currentWaveIndex++;
         int increment = Random.Range(waveIncrementMin, waveIncrementMax + 1);
         currentWaveEnemyCount += increment;
@@ -102,6 +114,33 @@ public class EnemySpawner : MonoBehaviour
 
         waveCountdown = timeBetweenWaves;
         state = SpawnState.CountingDown;
+    }
+
+    private void ReturnPlayerToSpawn()
+    {
+        if (!hasPlayerSpawnPosition)
+            return;
+
+        if (playerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null)
+                return;
+
+            playerTransform = player.transform;
+            playerRigidbody = player.GetComponent<Rigidbody2D>();
+        }
+
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.position = playerSpawnPosition;
+            playerRigidbody.linearVelocity = Vector2.zero;
+        }
+        else
+        {
+            Vector3 position = playerTransform.position;
+            playerTransform.position = new Vector3(playerSpawnPosition.x, playerSpawnPosition.y, position.z);
+        }
     }
 
     private void SpawnEnemy()

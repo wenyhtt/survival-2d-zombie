@@ -15,10 +15,15 @@ public partial class AttackAction : Action
     [SerializeReference] public BlackboardVariable<float> AttackRange;
 
     private float _lastAttackTime;
+    private EnemyVision _vision;
 
     protected override Status OnStart()
     {
         if (Self.Value == null || Player.Value == null)
+            return Status.Failure;
+
+        _vision = Self.Value.GetComponent<EnemyVision>();
+        if (_vision == null)
             return Status.Failure;
 
         return Status.Running;
@@ -26,15 +31,18 @@ public partial class AttackAction : Action
 
     protected override Status OnUpdate()
     {
-        if (Self.Value == null || Player.Value == null)
+        if (Self.Value == null || Player.Value == null || _vision == null)
+            return Status.Failure;
+
+        if (!_vision.CanSeePlayer(Player.Value))
             return Status.Failure;
 
         // Check if player moved out of range while we were preparing to attack
         float distance = Vector2.Distance(Self.Value.transform.position, Player.Value.transform.position);
         if (distance > AttackRange.Value)
         {
-            // Fail the attack so the Behavior Tree sequence restarts and goes back to Chase
-            return Status.Failure;
+            // Complete the sequence so the repeating tree starts over at See and Chase.
+            return Status.Success;
         }
 
         // Check if cooldown has elapsed
@@ -47,7 +55,8 @@ public partial class AttackAction : Action
             }
 
             _lastAttackTime = Time.time;
-            return Status.Success;
+            // Keep the sequence active so the enemy continues attacking on cooldown.
+            return Status.Running;
         }
 
         // Still cooling down, but player is in range. Wait here.
@@ -56,6 +65,6 @@ public partial class AttackAction : Action
 
     protected override void OnEnd()
     {
+        _vision = null;
     }
 }
-

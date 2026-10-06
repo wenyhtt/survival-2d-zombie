@@ -40,15 +40,15 @@ Newly purchased weapons are **auto-equipped** when added via `AddWeapon()`.
 
 ### How Shooting Works
 
-1. Player presses the attack input (left mouse button).
-2. Fire rate cooldown is checked (`Time.time >= lastFireTime + 1/fireRate`).
-3. For each bullet in `bulletsPerShot`:
-   - If `bulletsPerShot > 1`, each bullet gets a random angle offset within `±spreadAngle/2`.
+1. Player presses the configured shoot action.
+2. `WeaponShoot` selects a projectile point from the player's facing direction.
+3. For each bullet in `pellets`:
+   - If `pellets > 1`, bullets are evenly distributed across `spreadAngle`.
    - A `Bullet` prefab is instantiated at `firePoint`.
    - `Bullet.Setup(direction)` is called with the aimed direction.
 
-### Aiming
-- Direction is calculated from `firePoint.position` toward the **mouse cursor position in world space** using `Camera.main.ScreenToWorldPoint`.
+### Direction
+- The base direction is the player's facing direction. The projectile origin is selected from `pointRight`, `pointLeft`, `pointUp`, and `pointDown`; the weapon does not aim at the mouse cursor.
 
 ### Bullet Behavior (`Bullet.cs`)
 - Moves in a straight line at `speed` units/second.
@@ -62,11 +62,10 @@ Newly purchased weapons are **auto-equipped** when added via `AddWeapon()`.
 | Field | Description |
 |---|---|
 | `bulletPrefab` | The bullet to spawn |
-| `firePoint` | Spawn transform for bullets |
-| `fireRate` | Shots per second (e.g. `2` = fire every 0.5s) |
-| `bulletsPerShot` | `1` = pistol, `3+` = shotgun spread |
-| `spreadAngle` | Max total spread in degrees |
-| `attackActionReference` | Linked Input Action |
+| `pellets` | Number of bullets per shot (`1` = single projectile) |
+| `pointRight/Left/Up/Down` | Projectile origin for each facing direction |
+| `spreadAngle` | Total spread in degrees for multiple bullets |
+| `shootActionReference` | Linked Input Action |
 
 ---
 
