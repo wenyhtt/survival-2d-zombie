@@ -1,12 +1,18 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Menampilkan informasi gelombang musuh (nomor wave, jumlah musuh tersisa, dan hitung mundur) di UI.
+/// </summary>
 public class WaveUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI enemiesText;
     [SerializeField] private TextMeshProUGUI countdownText;
 
+    /// <summary>
+    /// Memperbarui tampilan antarmuka gelombang setiap frame, termasuk nomor gelombang, hitungan mundur, dan sisa musuh.
+    /// </summary>
     private void Update()
     {
         EnemySpawner spawner = EnemySpawner.Instance;

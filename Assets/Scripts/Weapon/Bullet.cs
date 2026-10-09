@@ -1,29 +1,41 @@
 using UnityEngine;
 
+/// <summary>
+/// Mengontrol perilaku proyektil peluru, termasuk pergerakan, batas waktu hidup, dan pemberian damage saat mengenai musuh.
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifeTime = 2f;
-    [SerializeField] private int damage = 25; // Amount of damage this bullet deals
+    [SerializeField] private int damage = 25;
     private Vector2 direction;
 
+    /// <summary>
+    /// Menyiapkan peluru dengan arah yang diberikan.
+    /// </summary>
     public void Setup(Vector2 dir)
     {
         direction = dir.normalized;
         transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-        // Destroy the bullet after some time so it doesn't clutter the scene
+        // Hancurkan peluru setelah beberapa waktu agar tidak memenuhi scene
         Destroy(gameObject, lifeTime);
     }
 
+    /// <summary>
+    /// Menggerakkan peluru setiap frame.
+    /// </summary>
     private void Update()
     {
-        // Move the bullet every frame
+        // Pindahkan peluru setiap frame
         transform.Translate(direction * speed * Time.deltaTime, Space.World);
     }
 
+    /// <summary>
+    /// Menangani tabrakan peluru dengan objek lain.
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ignore the player, bullet and any child objects (weapons, etc.)
+        // Abaikan pemain, peluru, dan objek lainnya (senjata, dll.)
         if (collision.CompareTag("Player") || collision.transform.root.CompareTag("Player"))
             return;
         if (collision.CompareTag("Bullet") || collision.transform.root.CompareTag("Bullet"))
@@ -33,7 +45,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
-            // Apply damage instead of instantly destroying
+            // Terapkan kerusakan daripada langsung menghancurkan
             Health enemyHealth = collision.GetComponent<Health>();
             if (enemyHealth != null)
             {
@@ -41,12 +53,11 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                // Fallback to instant kill if no Health component exists yet
                 Destroy(collision.gameObject);
             }
         }
 
-        // Destroy the bullet on ANY hit (enemy, wall, GunMan, etc.)
+        // Hancurkan peluru saat terkena apapun.
         Destroy(gameObject);
     }
 }

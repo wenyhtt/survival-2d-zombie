@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
+/// <summary>
+/// Mengelola tampilan layar Game Over, termasuk memunculkan panel, memainkan efek suara,
+/// dan menyediakan tombol untuk memulai ulang atau kembali ke menu utama.
+/// </summary>
 public class GameOverUI : MonoBehaviour
 {
     [Header("UI Elements")]
@@ -21,9 +25,12 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private bool returnToMainMenuOnQuit = true;
 
+    /// <summary>
+    /// Dipanggil saat skrip diinisialisasi, mengatur referensi awal dan status tombol.
+    /// </summary>
     private void Awake()
     {
-        // Ensure game time is running normally on scene load
+        // Pastikan waktu permainan berjalan normal saat memuat scene
         Time.timeScale = 1f;
 
         AutoAssignReferences();
@@ -44,16 +51,25 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Dipanggil saat objek diaktifkan, mendaftar ke peristiwa kematian pemain.
+    /// </summary>
     private void OnEnable()
     {
         Health.OnPlayerDied += HandlePlayerDeath;
     }
 
+    /// <summary>
+    /// Dipanggil saat objek dinonaktifkan, membatalkan pendaftaran dari peristiwa kematian pemain.
+    /// </summary>
     private void OnDisable()
     {
         Health.OnPlayerDied -= HandlePlayerDeath;
     }
 
+    /// <summary>
+    /// Secara otomatis menetapkan referensi komponen UI dan audio yang belum diisi.
+    /// </summary>
     private void AutoAssignReferences()
     {
         if (gameOverPanel == null)
@@ -85,6 +101,9 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Menangani gameover pemain atau langsung menampilkan antarmuka Game Over.
+    /// </summary>
     private void HandlePlayerDeath()
     {
         if (delayBeforeShow > 0f)
@@ -103,6 +122,9 @@ public class GameOverUI : MonoBehaviour
         ShowGameOver();
     }
 
+    /// <summary>
+    /// Menampilkan antarmuka Game Over, memutar suara, menghentikan musik latar, dan menjeda permainan jika diatur.
+    /// </summary>
     private void ShowGameOver()
     {
         if (gameOverPanel != null)
@@ -131,12 +153,18 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Dipanggil saat tombol restart diklik, mengatur ulang skala waktu dan memuat ulang scene saat ini.
+    /// </summary>
     public void OnRestartClicked()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    /// <summary>
+    /// Dipanggil saat tombol keluar diklik, kembali ke menu utama atau keluar dari aplikasi.
+    /// </summary>
     public void OnQuitClicked()
     {
         Time.timeScale = 1f;

@@ -4,70 +4,57 @@ using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
+/// <summary>
+/// Aksi (Action) Behavior Tree yang membuat musuh berdiam diri di tempat.
+/// Memaksa kecepatan pergerakan musuh menjadi nol secara terus-menerus hingga diinterupsi.
+/// </summary>
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "Idle", story: "[Self] idle", category: "Action", id: "af8b245a3c49c5076071d6fd2949a79f")]
 public partial class IdleAction : Action
 {
-    [SerializeReference] public BlackboardVariable<float> Speed;
-    private const float RoamRadius = 1f;
-    private const float MinimumPauseDuration = 1f;
-    private const float MaximumPauseDuration = 3f;
-    private const float DestinationTolerance = 0.05f;
-
     [SerializeReference] public BlackboardVariable<GameObject> Self;
-
     private Rigidbody2D _rigidbody;
-    private Vector2 _homePosition;
-    private Vector2 _destination;
-    private float _pauseRemaining;
-    private bool _isPausing;
 
+    /// <summary>
+    /// Dipanggil saat aksi berdiam diri dimulai.
+    /// Mengambil komponen fisika dan memastikan kecepatan gerak disetel ulang menjadi nol.
+    /// </summary>
     protected override Status OnStart()
     {
-        if (Self.Value == null)
-            return Status.Failure;
+        if (Self.Value != null)
+        {
+            // Mengambil komponen Rigidbody2D (fisika 2D) dari musuh
+            _rigidbody = Self.Value.GetComponent<Rigidbody2D>();
 
-        _rigidbody = Self.Value.GetComponent<Rigidbody2D>();
-        if (_rigidbody == null)
-            return Status.Failure;
+            // Hentikan pergerakan seketika
+            if (_rigidbody != null)
+                _rigidbody.linearVelocity = Vector2.zero;
+        }
 
-        _homePosition = _rigidbody.position;
-        _destination = _homePosition + UnityEngine.Random.insideUnitCircle * RoamRadius;
-        _isPausing = false;
-        _pauseRemaining = 0f;
+        // Aksi berjalan selamanya (sampai aksi lain menggantikan karena kondisi dari luar berubah)
         return Status.Running;
     }
 
+    /// <summary>
+    /// Dipanggil setiap frame selama musuh dalam keadaan diam.
+    /// Berfungsi memastikan musuh tetap diam tanpa tergeser atau terdorong.
+    /// </summary>
     protected override Status OnUpdate()
     {
-        if (_rigidbody == null)
-            return Status.Failure;
-
-        if (_isPausing)
-        {
-            _rigidbody.linearVelocity = Vector2.zero;
-            _pauseRemaining -= Time.deltaTime;
-            return _pauseRemaining <= 0f ? Status.Failure : Status.Running;
-        }
-
-        Vector2 toDestination = _destination - _rigidbody.position;
-        if (toDestination.sqrMagnitude <= DestinationTolerance * DestinationTolerance)
-        {
-            _rigidbody.linearVelocity = Vector2.zero;
-            _pauseRemaining = UnityEngine.Random.Range(MinimumPauseDuration, MaximumPauseDuration);
-            _isPausing = true;
-            return Status.Running;
-        }
-
-        _rigidbody.linearVelocity = toDestination.normalized * Speed;
-        return Status.Running;
-    }
-
-    protected override void OnEnd()
-    {
+        // Secara aktif memastikan nilai kecepatan adalah nol (0)
         if (_rigidbody != null)
             _rigidbody.linearVelocity = Vector2.zero;
 
+        return Status.Running;
+    }
+
+    /// <summary>
+    /// Dipanggil saat aksi berakhir (misal saat musuh beralih ke aksi mengejar).
+    /// Berfungsi melepaskan referensi komponen fisika musuh.
+    /// </summary>
+    protected override void OnEnd()
+    {
+        // Mengosongkan memori referensi
         _rigidbody = null;
     }
 }

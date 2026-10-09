@@ -1,6 +1,10 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+/// <summary>
+/// Mengontrol animasi dan arah hadap sprite musuh berdasarkan kecepatan geraknya.
+/// Menentukan apakah musuh menghadap kiri, kanan, atas, atau bawah berdasarkan data dari Rigidbody2D.
+/// </summary>
 public class EnemyFacing : MonoBehaviour
 {
     private const float WalkSkipFirstFrame = 0.48f;
@@ -22,6 +26,9 @@ public class EnemyFacing : MonoBehaviour
     private bool isFacingRight;
     private bool lastFacingRight;
 
+    /// <summary>
+    /// Menginisialisasi komponen dan hash status animasi pada saat awal.
+    /// </summary>
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -45,17 +52,26 @@ public class EnemyFacing : MonoBehaviour
         walkDown = GetAnimationStateHash(walkDownClip, "down");
     }
 
+    /// <summary>
+    /// Memperbarui animasi pergerakan berdasarkan kecepatan Rigidbody.
+    /// </summary>
     private void Update()
     {
-        // Use the Rigidbody's velocity (set by Behavior Tree) to determine animation and facing
+        // Menggunakan kecepatan Rigidbody (diatur oleh Behavior Tree) untuk menentukan animasi dan arah hadap
         PlayMovementAnimation(rigidBody.linearVelocity);
     }
 
+    /// <summary>
+    /// Menerapkan arah hadap sprite setelah semua pembaruan selesai.
+    /// </summary>
     private void LateUpdate()
     {
         ApplyFacingDirection();
     }
 
+    /// <summary>
+    /// Memainkan animasi pergerakan berdasarkan arah yang diberikan.
+    /// </summary>
     private void PlayMovementAnimation(Vector2 direction)
     {
         if (direction.sqrMagnitude <= 0.01f)
@@ -106,6 +122,9 @@ public class EnemyFacing : MonoBehaviour
         wasMoving = true;
     }
 
+    /// <summary>
+    /// Mendapatkan hash dari klip animasi berdasarkan arah yang diberikan.
+    /// </summary>
     private int GetAnimationStateHash(AnimationClip clip, string direction)
     {
         if (clip == null)
@@ -124,6 +143,9 @@ public class EnemyFacing : MonoBehaviour
         return stateHash;
     }
 
+    /// <summary>
+    /// Membalikkan sprite renderer untuk menyesuaikan dengan arah pandang musuh.
+    /// </summary>
     private void ApplyFacingDirection()
     {
         if (isFacingRight != lastFacingRight)

@@ -1,10 +1,16 @@
 using UnityEngine;
 
+/// <summary>
+/// Menggerakkan kamera agar selalu mengikuti posisi target (pemain) dengan efek pergerakan halus (smooth follow).
+/// </summary>
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private float followSpeed = 5f;
 
+    /// <summary>
+    /// Mencari target pemain jika belum ditentukan.
+    /// </summary>
     private void Awake()
     {
         if (target == null)
@@ -16,6 +22,9 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Menggerakkan kamera mengikuti target setiap frame fisika.
+    /// </summary>
     private void FixedUpdate()
     {
         if (target == null)

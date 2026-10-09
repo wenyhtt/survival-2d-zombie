@@ -2,18 +2,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
+/// <summary>
+/// Mengontrol senjata jarak dekat (melee) yang digunakan pemain.
+/// Menangani deteksi area serangan, cooldown, dan pemberian damage kepada musuh yang terkena.
+/// </summary>
 public class WeaponMelee : MonoBehaviour
 {
     [Header("Combat Settings")]
     [SerializeField] private int damage = 25;
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private float attackCooldown = 0.5f;
-    
+
     [Header("Visual Settings")]
-    [Tooltip("How far the weapon moves when attacking. 0.125 is typically 2 pixels at 16 Pixels Per Unit.")]
+    [Tooltip("Berapa jauh senjata bergerak saat menyerang. 0.125 biasanya adalah 2 piksel pada 16 Piksel Per Unit.")]
     [SerializeField] private float thrustDistance = 0.125f;
     [SerializeField] private float thrustDuration = 0.1f;
-    
+
     [Header("Input")]
     [SerializeField] private InputActionReference attackActionReference;
 
@@ -22,22 +26,31 @@ public class WeaponMelee : MonoBehaviour
     private Vector3 originalLocalPosition;
     private Coroutine attackCoroutine;
 
+    /// <summary>
+    /// Dipanggil saat skrip dimuat. Menginisialisasi komponen dan posisi awal.
+    /// </summary>
     private void Awake()
     {
         player = GetComponentInParent<Player>();
         originalLocalPosition = transform.localPosition;
     }
 
+    /// <summary>
+    /// Dipanggil saat objek diaktifkan.
+    /// </summary>
     private void OnEnable()
     {
-        // Reset position just in case it was disabled mid-thrust
+        // Atur ulang posisi untuk berjaga-jaga jika dinonaktifkan di tengah tusukan
         transform.localPosition = originalLocalPosition;
     }
 
+    /// <summary>
+    /// Diperbarui setiap frame. Memeriksa input serangan.
+    /// </summary>
     private void Update()
     {
-        bool attackPressed = attackActionReference != null && 
-                             attackActionReference.action.enabled && 
+        bool attackPressed = attackActionReference != null &&
+                             attackActionReference.action.enabled &&
                              attackActionReference.action.WasPressedThisFrame();
 
         if (attackPressed && Time.time >= lastAttackTime + attackCooldown)
@@ -46,6 +59,9 @@ public class WeaponMelee : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Melakukan serangan jarak dekat ke arah pemain menghadap.
+    /// </summary>
     private void Attack()
     {
         if (player == null) return;
@@ -57,14 +73,14 @@ public class WeaponMelee : MonoBehaviour
         else if (player.IsFacingDown) attackDirection = Vector2.down;
         else if (player.IsFacingLeft) attackDirection = Vector2.left;
 
-        // Trigger visual thrust animation
+        // Memicu animasi tusukan visual
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         attackCoroutine = StartCoroutine(ThrustRoutine(attackDirection));
 
-        // Damage detection using a circle in front of the player
+        // Deteksi kerusakan menggunakan lingkaran di depan pemain
         Vector2 hitCenter = (Vector2)player.transform.position + attackDirection * attackRange;
         Collider2D[] hits = Physics2D.OverlapCircleAll(hitCenter, attackRange * 0.75f);
-        
+
         foreach (var hit in hits)
         {
             if (hit.CompareTag("Enemy"))
@@ -78,14 +94,17 @@ public class WeaponMelee : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Menggerakkan senjata ke depan dan ke belakang.
+    /// </summary>
     private IEnumerator ThrustRoutine(Vector2 direction)
     {
         Vector3 targetPos = originalLocalPosition + (Vector3)(direction * thrustDistance);
-        
+
         float halfDuration = thrustDuration / 2f;
         float elapsed = 0f;
 
-        // Move forward
+        // Bergerak maju
         while (elapsed < halfDuration)
         {
             transform.localPosition = Vector3.Lerp(originalLocalPosition, targetPos, elapsed / halfDuration);
@@ -93,7 +112,7 @@ public class WeaponMelee : MonoBehaviour
             yield return null;
         }
 
-        // Move back
+        // Bergerak mundur
         elapsed = 0f;
         while (elapsed < halfDuration)
         {
@@ -105,9 +124,12 @@ public class WeaponMelee : MonoBehaviour
         transform.localPosition = originalLocalPosition;
     }
 
+    /// <summary>
+    /// Menggambar visualisasi rentang serangan di Unity Editor.
+    /// </summary>
     private void OnDrawGizmosSelected()
     {
-        // Visualize the attack range in the Unity Editor
+        // Memvisualisasikan jangkauan serangan di Unity Editor
         Player p = GetComponentInParent<Player>();
         Vector2 attackDirection = Vector2.right;
         Vector3 origin = transform.position;

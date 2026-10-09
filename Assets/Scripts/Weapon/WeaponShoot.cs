@@ -2,43 +2,56 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(10)]
+/// <summary>
+/// Mengontrol mekanisme tembakan senjata jarak jauh.
+/// Menangani input, pembuatan peluru (Instantiate), pengaturan arah tembak, dan pola penyebaran (spread/shotgun).
+/// </summary>
 public class WeaponShoot : MonoBehaviour
 {
     private Player player;
     [SerializeField] private GameObject bulletPrefab;
     
     [Header("Shotgun Settings")]
-    [Tooltip("Number of bullets fired at once. Set to 1 for single-shot weapons, > 1 for shotgun-style spread.")]
+    [Tooltip("Jumlah peluru yang ditembakkan sekaligus. Set ke 1 untuk senjata tembakan tunggal, > 1 untuk penyebaran gaya senapan gentel.")]
     [SerializeField] private int pellets = 1;
-    [Tooltip("Total spread angle in degrees when firing multiple pellets.")]
+    [Tooltip("Total sudut penyebaran dalam derajat saat menembakkan banyak pelet.")]
     [SerializeField] private float spreadAngle = 30f;
     
     [Header("Projectile Points")]
-    [Tooltip("Assign 4 empty GameObjects positioned at the barrel for each direction.")]
+    [Tooltip("Tetapkan 4 GameObject kosong yang diposisikan di laras untuk setiap arah.")]
     [SerializeField] private Transform pointRight;
     [SerializeField] private Transform pointLeft;
     [SerializeField] private Transform pointUp;
     [SerializeField] private Transform pointDown;
     
-    [Tooltip("Optional: Assign an Input Action for shooting.")]
+    [Tooltip("Opsional: Tetapkan Tindakan Input untuk menembak.")]
     [SerializeField] private InputActionReference shootActionReference;
 
     private bool pendingShoot;
 
+    /// <summary>
+    /// Menginisialisasi referensi pemain saat dimuat.
+    /// </summary>
     private void Awake()
     {
         player ??= GetComponentInParent<Player>();
     }
 
+    /// <summary>
+    /// Memeriksa input penembakan setiap frame.
+    /// </summary>
     private void Update()
     {
-        // Check for new Input System Action or fallback to Mouse/Keyboard
+        // Periksa Tindakan Sistem Input baru atau kembali ke Mouse/Keyboard
         if (shootActionReference != null && shootActionReference.action.enabled && shootActionReference.action.WasPressedThisFrame())
         {
             pendingShoot = true;
         }
     }
 
+    /// <summary>
+    /// Menangani penembakan setelah semua pembaruan lainnya selesai.
+    /// </summary>
     private void LateUpdate()
     {
         if (pendingShoot)
@@ -48,11 +61,14 @@ public class WeaponShoot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Melakukan logika penembakan, membuat peluru dengan arah dan penyebaran yang sesuai.
+    /// </summary>
     private void Shoot()
     {
         if (bulletPrefab == null || player == null) return;
 
-        Vector2 shootDirection = Vector2.right; // Default to right
+        Vector2 shootDirection = Vector2.right; // Standar ke kanan
         Transform activePoint = pointRight;
 
         if (player.IsFacingUp)
@@ -73,7 +89,7 @@ public class WeaponShoot : MonoBehaviour
 
         if (activePoint == null)
         {
-            Debug.LogError($"Projectile point for current facing direction is not assigned on {gameObject.name}! Please assign all 4 Projectile Points in the Inspector.");
+            Debug.LogError($"Titik proyektil untuk arah menghadap saat ini tidak ditetapkan pada {gameObject.name}! Harap tetapkan keempat Titik Proyektil di Inspektur.");
             return;
         }
 
@@ -86,16 +102,16 @@ public class WeaponShoot : MonoBehaviour
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
-                // Calculate spread angle offset for this pellet
+                // Hitung offset sudut penyebaran untuk pelet ini
                 float angleOffset = 0f;
                 if (pellets > 1)
                 {
-                    // Evenly distribute from -spreadAngle/2 to +spreadAngle/2
+                    // Distribusikan secara merata dari -spreadAngle/2 ke +spreadAngle/2
                     float step = spreadAngle / (pellets - 1);
                     angleOffset = -spreadAngle / 2f + (step * i);
                 }
 
-                // Rotate the base shootDirection by angleOffset
+                // Putar dasar shootDirection dengan angleOffset
                 Vector2 finalDirection = Quaternion.Euler(0, 0, angleOffset) * shootDirection;
                 bulletScript.Setup(finalDirection);
             }
