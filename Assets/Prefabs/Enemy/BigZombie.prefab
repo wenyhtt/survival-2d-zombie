@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Graph: {fileID: -3137164227666073872, guid: b5e2aae9177074b0796a76a911c7c827, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 9123681985899790578
-  - rid: 9123681985899791288
   - rid: 9123681985899791289
   - rid: 9123681985899791290
   m_OriginalGraph: {fileID: 0}
@@ -259,14 +258,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 7796053814925734281}
-    - rid: 9123681985899791288
-      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 9634159354972164439
-          m_Value1: 7026861674215621432
-        Name: Speed
-        m_Value: 1
     - rid: 9123681985899791289
       type: {class: 'BlackboardVariable`1[[System.Int32, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -306,7 +297,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d47f2a9c731f4fd1aeb1f2287845c3a6, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
   sightRange: 8
   checkInterval: 1
