@@ -56,6 +56,5 @@ public partial class IdleAction : Action
     {
         // Mengosongkan memori referensi
         _rigidbody = null;
-        _vision = null;
     }
 }
