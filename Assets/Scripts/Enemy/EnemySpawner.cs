@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Mengelola sistem spawning (kemunculan) musuh berdasarkan gelombang (wave).
+/// Mengontrol jumlah musuh per gelombang, jeda antar gelombang, dan logika penantian hingga semua musuh mati.
+/// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     public enum SpawnState { CountingDown, Spawning, WaitingForDeath }
@@ -40,17 +44,26 @@ public class EnemySpawner : MonoBehaviour
     public float WaveCountdown => waveCountdown;
     public int EnemiesRemaining => Mathf.Max(0, currentWaveEnemyCount - enemiesSpawnedThisWave + spawnedEnemies.Count);
 
+    /// <summary>
+    /// Menginisialisasi instance singleton dari EnemySpawner.
+    /// </summary>
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Menghapus referensi instance singleton saat objek dihancurkan.
+    /// </summary>
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
     }
 
+    /// <summary>
+    /// Menginisialisasi pengaturan gelombang awal dan menyimpan posisi spawn pemain.
+    /// </summary>
     private void Start()
     {
         waveCountdown = timeBetweenWaves;
@@ -68,6 +81,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Memperbarui state spawner setiap frame, menangani countdown gelombang, proses spawn, dan penyelesaian gelombang.
+    /// </summary>
     private void Update()
     {
         spawnedEnemies.RemoveAll(enemy => enemy == null);
@@ -91,6 +107,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Memulai gelombang baru dengan mereset jumlah musuh yang dispawn dan mengambil prefab musuh untuk gelombang ini.
+    /// </summary>
     private void StartWave()
     {
         enemiesSpawnedThisWave = 0;
@@ -102,6 +121,9 @@ public class EnemySpawner : MonoBehaviour
             state = SpawnState.Spawning;
     }
 
+    /// <summary>
+    /// Menyelesaikan gelombang saat ini, mengembalikan pemain ke posisi awal, dan menyiapkan gelombang berikutnya.
+    /// </summary>
     private void CompleteWave()
     {
         ReturnPlayerToSpawn();
@@ -116,6 +138,9 @@ public class EnemySpawner : MonoBehaviour
         state = SpawnState.CountingDown;
     }
 
+    /// <summary>
+    /// Mengembalikan pemain ke posisi spawn awalnya.
+    /// </summary>
     private void ReturnPlayerToSpawn()
     {
         if (!hasPlayerSpawnPosition)
@@ -143,6 +168,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Memunculkan satu musuh di posisi acak dan menambahkannya ke daftar musuh yang telah muncul.
+    /// </summary>
     private void SpawnEnemy()
     {
         GameObject newEnemy = Instantiate(currentWavePrefab, GetSpawnPosition(), Quaternion.identity);
@@ -161,6 +189,9 @@ public class EnemySpawner : MonoBehaviour
             state = SpawnState.WaitingForDeath;
     }
 
+    /// <summary>
+    /// Mengambil prefab musuh selanjutnya untuk dimunculkan dalam gelombang ini, mengocok ulang jika perlu.
+    /// </summary>
     private GameObject GetNextWavePrefab()
     {
         if (shuffledPrefabs.Count == 0)
@@ -174,6 +205,9 @@ public class EnemySpawner : MonoBehaviour
         return prefab;
     }
 
+    /// <summary>
+    /// Mengisi kembali dan mengocok daftar prefab musuh yang tersedia.
+    /// </summary>
     private void RefillShuffledPrefabs()
     {
         if (enemyPrefabs == null) return;
@@ -193,6 +227,9 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Mengkalkulasi posisi acak di dalam area atau di tepi area untuk memunculkan musuh.
+    /// </summary>
     private Vector3 GetSpawnPosition()
     {
         if (!spawnOnEdge)
@@ -212,6 +249,9 @@ public class EnemySpawner : MonoBehaviour
         return transform.position + new Vector3(halfW, Random.Range(-halfH, halfH), 0f);
     }
 
+    /// <summary>
+    /// Menggambar area batas kemunculan musuh di dalam editor Unity.
+    /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.color = gizmoColor;

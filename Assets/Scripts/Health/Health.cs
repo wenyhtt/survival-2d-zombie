@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
+/// <summary>
+/// Mengelola sistem kesehatan (health) sebuah entitas (pemain atau musuh).
+/// Menangani pengurangan nyawa, efek visual saat terkena serangan, dan proses kematian.
+/// </summary>
 public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
@@ -26,17 +30,26 @@ public class Health : MonoBehaviour
 
     public UnityEvent OnDeath;
 
+    /// <summary>
+    /// Inisialisasi health saat ini dan mendapatkan komponen SpriteRenderer.
+    /// </summary>
     private void Awake()
     {
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    /// <summary>
+    /// Memanggil event perubahan health pada awal permainan.
+    /// </summary>
     private void Start()
     {
         OnHealthChanged?.Invoke(currentHealth);
     }
 
+    /// <summary>
+    /// Menambahkan health maksimal dan health saat ini sebesar jumlah yang ditentukan.
+    /// </summary>
     public void AddBonusHealth(int amount)
     {
         maxHealth += amount;
@@ -44,6 +57,9 @@ public class Health : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth);
     }
 
+    /// <summary>
+    /// Mengurangi health sebesar jumlah kerusakan dan memproses efek terkena serangan atau kematian.
+    /// </summary>
     public void TakeDamage(int amount)
     {
         if (isDead) return;
@@ -64,6 +80,9 @@ public class Health : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Mengubah warna sprite menjadi merah sementara, lalu kembali normal.
+    /// </summary>
     private void FlashHit()
     {
         if (spriteRenderer == null) return;
@@ -82,6 +101,9 @@ public class Health : MonoBehaviour
         flashCoroutine = null;
     }
 
+    /// <summary>
+    /// Menangani proses ketika entitas mati, memicu event, dan memberikan skor kepada pemain jika entitas adalah musuh.
+    /// </summary>
     private void Die()
     {
         if (OnDeath != null)
@@ -97,7 +119,7 @@ public class Health : MonoBehaviour
         }
         else
         {
-            // Award score to player if this enemy has a score value
+            // Memberikan skor kepada pemain jika musuh ini memiliki nilai skor
             EnemyScoreValue enemy = GetComponent<EnemyScoreValue>();
             if (enemy != null)
             {

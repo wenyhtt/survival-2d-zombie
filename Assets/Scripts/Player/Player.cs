@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
+/// <summary>
+/// Mengontrol pergerakan, animasi, dan arah hadap karakter pemain.
+/// Membaca input dari Unity Input System dan menggerakkan Rigidbody2D sesuai arah yang ditekan.
+/// </summary>
 public class Player : MonoBehaviour
 {
     private static readonly int PlayerWalkSide = Animator.StringToHash("PlayerWalkSide");
@@ -26,6 +30,7 @@ public class Player : MonoBehaviour
     public bool IsFacingDown => currentAnimation == PlayerWalkDown;
     public bool IsFacingLeft => isFacingLeft;
 
+    /// <summary>Dipanggil saat skrip diinisialisasi (instansiasi).</summary>
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -40,6 +45,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>Dipanggil setiap frame.</summary>
     private void FixedUpdate()
     {
         if (moveActionReference != null && moveActionReference.action.enabled)
@@ -50,11 +56,13 @@ public class Player : MonoBehaviour
         rigidBody.MovePosition(rigidBody.position + clampedMovement * moveSpeed * Time.fixedDeltaTime);
     }
 
+    /// <summary>Dipanggil setiap frame setelah Update selesai.</summary>
     private void LateUpdate()
     {
         ApplyFacingDirection();
     }
 
+    /// <summary>Memainkan animasi pergerakan berdasarkan arah.</summary>
     private void PlayMovementAnimation(Vector2 direction)
     {
         if (direction.sqrMagnitude <= 0.01f)
@@ -101,6 +109,7 @@ public class Player : MonoBehaviour
         wasMoving = true;
     }
 
+    /// <summary>Menerapkan arah hadapan pemain.</summary>
     private void ApplyFacingDirection()
     {
         if (isFacingLeft != lastFacingLeft)
@@ -113,7 +122,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        // Animator writes a new X every frame, so we must negate every LateUpdate when facing left.
+        // Animator menulis nilai X baru setiap frame, jadi kita harus membalik nilainya pada setiap LateUpdate ketika menghadap ke kiri.
         if (pickableItems != null && isFacingLeft)
         {
             Vector3 localPos = pickableItems.localPosition;

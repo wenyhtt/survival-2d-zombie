@@ -1,6 +1,10 @@
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Menampilkan nyawa (health) pemain saat ini di elemen UI teks.
+/// Merubahan health dari komponen Health milik pemain.
+/// </summary>
 public class HealthUI : MonoBehaviour
 {
     [Tooltip("Text component to display health as a number")]
@@ -8,33 +12,42 @@ public class HealthUI : MonoBehaviour
 
     private Health playerHealth;
 
+    /// <summary>
+    /// Diinisialisasi saat mulai, mencari objek pemain, mendapatkan komponen Health.
+    /// </summary>
     private void Start()
     {
-        // Find the player object and grab its Health component
+        // Mencari objek pemain dan mengambil komponen Health-nya
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
             playerHealth = playerObj.GetComponent<Health>();
             if (playerHealth != null)
             {
-                // Subscribe to the health changed event
+                // Mendaftar ke peristiwa perubahan health
                 playerHealth.OnHealthChanged += UpdateHealthUI;
-                
-                // Initialize the UI with the starting value
+
+                // Menginisialisasi UI dengan nilai awal
                 UpdateHealthUI(playerHealth.CurrentHealth);
             }
         }
     }
 
+    /// <summary>
+    /// Dipanggil saat objek dihancurkan, membatalkan pendaftaran dari peristiwa perubahan health.
+    /// </summary>
     private void OnDestroy()
     {
         if (playerHealth != null)
         {
-            // Always unsubscribe to prevent memory leaks
+            // Selalu membatalkan pendaftaran untuk mencegah kebocoran memori
             playerHealth.OnHealthChanged -= UpdateHealthUI;
         }
     }
 
+    /// <summary>
+    /// Memperbarui teks UI health dengan nilai health saat ini.
+    /// </summary>
     private void UpdateHealthUI(int currentHealth)
     {
         if (healthText != null)

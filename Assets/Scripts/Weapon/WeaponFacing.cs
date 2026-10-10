@@ -1,28 +1,38 @@
 using UnityEngine;
 
+/// <summary>
+/// Menyesuaikan tampilan sprite senjata agar sesuai dengan arah hadap pemain saat ini.
+/// Mengganti sprite senjata antara versi samping, atas, dan bawah.
+/// </summary>
 public class WeaponFacing : MonoBehaviour
 {
-    private Player player; // Reference to Player on the script
+    private Player player; // Referensi ke Player di skrip
     private SpriteRenderer spriteRenderer;
     
     [SerializeField] private Sprite sideSprite;
     [SerializeField] private Sprite upSprite;
     [SerializeField] private Sprite downSprite;
 
+    /// <summary>
+    /// Menginisialisasi komponen dan referensi saat dimuat.
+    /// </summary>
     private void Awake()
     {
-        // Auto-assign components
+        // Menugaskan komponen secara otomatis
         spriteRenderer ??= GetComponent<SpriteRenderer>();
         player ??= GetComponentInParent<Player>();
     }
 
+    /// <summary>
+    /// Memperbarui arah dan urutan penyortiran sprite senjata setiap frame.
+    /// </summary>
     private void Update()
     {
         if (player == null || spriteRenderer == null) return;
 
         spriteRenderer.flipX = player.IsFacingLeft;
 
-        // Determine target sprite and sorting order based on direction
+        // Menentukan sprite target dan urutan penyortiran berdasarkan arah
         Sprite targetSprite = sideSprite;
         int targetOrder = 3;
 
@@ -36,13 +46,13 @@ public class WeaponFacing : MonoBehaviour
             targetSprite = downSprite;
         }
 
-        // Apply sprite if it changed
+        // Terapkan sprite jika berubah
         if (targetSprite != null && spriteRenderer.sprite != targetSprite)
         {
             spriteRenderer.sprite = targetSprite;
         }
 
-        // Apply sorting order if it changed
+        // Terapkan urutan penyortiran jika berubah
         if (spriteRenderer.sortingOrder != targetOrder)
         {
             spriteRenderer.sortingOrder = targetOrder;

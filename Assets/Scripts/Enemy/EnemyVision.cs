@@ -1,6 +1,10 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
+/// <summary>
+/// Sistem penglihatan musuh yang menggunakan raycast untuk mendeteksi pemain.
+/// Mengoptimalkan performa dengan meng-cache hasil pengecekan dan menerapkan interval waktu antar pemeriksaan.
+/// </summary>
 public class EnemyVision : MonoBehaviour
 {
     private const float DefaultSightRange = 8f;
@@ -19,6 +23,9 @@ public class EnemyVision : MonoBehaviour
     private float _nextCheckTime;
     private float _initialStagger;
 
+    /// <summary>
+    /// Mereset variabel-variabel pada saat objek diaktifkan.
+    /// </summary>
     private void OnEnable()
     {
         _cachedPlayer = null;
@@ -27,6 +34,9 @@ public class EnemyVision : MonoBehaviour
         _initialStagger = Random.Range(0f, Mathf.Max(0f, checkInterval));
     }
 
+    /// <summary>
+    /// Mengecek apakah musuh dapat melihat pemain dengan mempertimbangkan jarak dan halangan visibilitas.
+    /// </summary>
     public bool CanSeePlayer(GameObject player)
     {
         if (player == null || !player.activeInHierarchy || !player.scene.IsValid())
@@ -41,7 +51,7 @@ public class EnemyVision : MonoBehaviour
         float distanceSquared = toPlayer.sqrMagnitude;
         float range = Mathf.Max(0f, sightRange);
 
-        // The distance check is cheap and runs every call; only nearby players require a raycast.
+        // Pemeriksaan jarak tidak memakan banyak sumber daya dan berjalan setiap panggilan; hanya pemain yang dekat yang memerlukan raycast.
         if (distanceSquared > range * range)
         {
             _cachedPlayer = player;
@@ -64,7 +74,7 @@ public class EnemyVision : MonoBehaviour
         _hasCachedResult = true;
         _nextCheckTime = Time.time + Mathf.Max(0.05f, checkInterval);
 
-        // Offset each enemy's first refresh so large groups do not raycast on the same frame.
+        // Memberikan offset pada penyegaran pertama setiap musuh sehingga grup besar tidak melakukan raycast pada frame yang sama.
         if (!_hasAppliedInitialStagger)
         {
             _nextCheckTime += _initialStagger;
@@ -74,6 +84,9 @@ public class EnemyVision : MonoBehaviour
         return _cachedCanSeePlayer;
     }
 
+    /// <summary>
+    /// Mengecek apakah ada garis pandang yang jelas antara musuh dan pemain tanpa terhalang objek lain.
+    /// </summary>
     private bool HasClearLineOfSight(GameObject player, Vector2 origin, Vector2 toPlayer, float distanceSquared)
     {
         if (distanceSquared <= Mathf.Epsilon)
