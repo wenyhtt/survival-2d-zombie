@@ -24,23 +24,30 @@ public partial class IdleAction : Action
 
     private Rigidbody2D _rigidbody;
     private EnemyVision _vision;
+    private bool _isPausing;
+    private float _pauseRemaining;
 
     protected override Status OnStart()
     {
         if (Self.Value == null)
             return Status.Failure;
 
-            // Mengambil komponen penglihatan musuh untuk mendeteksi pemain
-            _vision = Self.Value.GetComponent<EnemyVision>();
+        // Mengambil komponen penglihatan musuh untuk mendeteksi pemain
+        _vision = Self.Value.GetComponent<EnemyVision>();
 
-            // Hentikan pergerakan seketika
-            if (_rigidbody != null)
-                _rigidbody.linearVelocity = Vector2.zero;
-        }
+        // Ambil Rigidbody2D dari Self
+        _rigidbody = Self.Value.GetComponent<Rigidbody2D>();
+
+        // Hentikan pergerakan seketika
+        if (_rigidbody != null)
+            _rigidbody.linearVelocity = Vector2.zero;
 
         // Mencari objek pemain jika belum disetel atau tidak valid
         if (Player.Value == null || !Player.Value.scene.IsValid() || !Player.Value.activeInHierarchy)
             Player.Value = GameObject.FindGameObjectWithTag("Player");
+
+        _isPausing = false;
+        _pauseRemaining = 0f;
 
         return Status.Running;
     }
